@@ -30,7 +30,7 @@ jobs:
       - name: Self-audit the live site (main only)
         if: matrix.os == 'ubuntu-latest' && matrix.node == 22 && github.ref == 'refs/heads/main'
         run: node bin/launchgrade.js https://fastpresspages.github.io/launchgrade/ --fail-under 0 --out .self-audit --quiet
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: matrix.os == 'ubuntu-latest' && matrix.node == 22 && github.ref == 'refs/heads/main'
         with:
           name: self-audit
