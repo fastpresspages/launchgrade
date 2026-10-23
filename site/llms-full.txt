@@ -141,7 +141,7 @@ Labels: Launch-ready >=90, Almost there >=80, Needs polish >=70, Risky launch >=
 
 ## Real sample
 
-A scan of https://fastpresspages.github.io/YouLauncher/ on 23 October 2026 returned B- 71/100: conversion 93, trust 38, technical 91, SEO 79, social 20, accessibility 100, AI-agent readiness 50. The full report is at https://fastpresspages.github.io/launchgrade/samples/youlauncher/report.html. This is a dated snapshot, not a claim about current performance.
+Two dated scans of https://fastpresspages.github.io/YouLauncher/ on 23 October 2026: the original page returned B- 71/100 (conversion 93, trust 38, technical 91, SEO 79, social 20, accessibility 100, AI-agent readiness 50), and the rebuilt page returned A+ 100/100 with one warning (48 scored: 47 pass, 1 warn, 0 fail; technical 98; the warning is the deliberate absence of analytics). Reports: https://fastpresspages.github.io/launchgrade/samples/youlauncher-before/report.html and https://fastpresspages.github.io/launchgrade/samples/youlauncher/report.html. These are dated snapshots, not claims about future performance.
 
 ## Free human audit
 

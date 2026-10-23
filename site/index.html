@@ -148,7 +148,7 @@
       <div class="card-top">
         <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="card-file">launchgrade · report</span>
-        <span class="live">real scan</span>
+        <span class="live">after rebuild</span>
       </div>
       <div class="card-site">
         <span class="site-avatar" aria-hidden="true">YL</span>
@@ -156,29 +156,30 @@
           <b>YouLauncher</b>
           <span>fastpresspages.github.io/YouLauncher</span>
         </div>
-        <span class="scan-time">398 ms</span>
+        <span class="scan-time">379 ms</span>
       </div>
       <div class="grade-row">
-        <div class="grade-ring" style="--score:71" aria-hidden="true">
-          <div><b>B-</b><span>71/100</span></div>
+        <div class="grade-ring" style="--score:100" aria-hidden="true">
+          <div><b>A+</b><span>100/100</span></div>
         </div>
         <div class="grade-copy">
-          <b>Needs polish</b>
-          <p>27 pass · 15 warn · 3 fail<br>45 scored checks</p>
+          <b>Launch-ready</b>
+          <p>47 pass · 1 warn · 0 fail<br>48 scored checks</p>
           <a href="samples/youlauncher/report.html">Open the full report <span aria-hidden="true">→</span></a>
+          <a class="before-link" href="samples/youlauncher-before/report.html">Before the rebuild: B- 71</a>
         </div>
       </div>
       <div class="mini-bars" aria-label="Category scores">
-        <div><span>Conversion</span><b>93</b><i style="--v:93"></i></div>
-        <div><span>Trust</span><b>38</b><i style="--v:38" class="low"></i></div>
-        <div><span>Technical</span><b>91</b><i style="--v:91"></i></div>
-        <div><span>SEO</span><b>79</b><i style="--v:79"></i></div>
-        <div><span>Social</span><b>20</b><i style="--v:20" class="low"></i></div>
-        <div><span>AI agents</span><b>50</b><i style="--v:50" class="mid"></i></div>
+        <div><span>Conversion</span><b>100</b><i style="--v:100"></i></div>
+        <div><span>Trust</span><b>100</b><i style="--v:100"></i></div>
+        <div><span>Technical</span><b>98</b><i style="--v:98"></i></div>
+        <div><span>SEO</span><b>100</b><i style="--v:100"></i></div>
+        <div><span>Social</span><b>100</b><i style="--v:100"></i></div>
+        <div><span>AI agents</span><b>100</b><i style="--v:100"></i></div>
       </div>
-      <div class="top-fix">
-        <span class="tag">fix first</span>
-        <p><b>Social card missing.</b> Add Open Graph tags so the link does not look broken when shared.</p>
+      <div class="top-fix warn">
+        <span class="tag">only warning</span>
+        <p><b>No analytics.</b> Deliberate: this site does not track you. The fix plan still flags it before a public launch.</p>
       </div>
       <p class="card-note">A real audit, not a mockup · 23 Oct 2026</p>
     </aside>
@@ -213,7 +214,7 @@
         <span class="step-num">02</span>
         <h3>Get a weighted grade</h3>
         <p>Every check returns pass, warn, fail or info. Categories are normalized and weighted, so conversion and technical issues outrank cosmetic ones.</p>
-        <code>B- · 71/100 · needs polish</code>
+        <code>A+ · 100/100 · launch-ready</code>
       </li>
       <li>
         <span class="step-num">03</span>
@@ -335,21 +336,19 @@
 <span class="t-lime">▲ LaunchGrade</span> <span class="t-dim">v0.1.0 · your.site</span>
 
   <span class="t-dim">┌──────────────────────────────────────────────┐</span>
-  <span class="t-dim">│</span>  <span class="t-amber">B-  71/100</span>  Needs polish                     <span class="t-dim">│</span>
+  <span class="t-dim">│</span>  <span class="t-green">A+  100/100</span>  Launch-ready                   <span class="t-dim">│</span>
   <span class="t-dim">└──────────────────────────────────────────────┘</span>
 
-  <span class="t-green">Conversion</span>        <span class="t-green">93</span>  ███████████████████░
-  <span class="t-red">Trust</span>             <span class="t-red">38</span>  ████████░░░░░░░░░░░░
-  <span class="t-green">Technical</span>         <span class="t-green">91</span>  ██████████████████░░
-  <span class="t-amber">SEO</span>               <span class="t-amber">79</span>  ████████████████░░░░
-  <span class="t-red">Social sharing</span>    <span class="t-red">20</span>  ████░░░░░░░░░░░░░░░░
-  <span class="t-green">Accessibility</span>    <span class="t-green">100</span>  ████████████████████
-  <span class="t-red">AI agents</span>         <span class="t-red">50</span>  ██████████░░░░░░░░░░
+  <span class="t-green">Conversion</span>        <span class="t-green">100</span>  ████████████████████
+  <span class="t-green">Trust</span>             <span class="t-green">100</span>  ████████████████████
+  <span class="t-green">Technical</span>         <span class="t-green">98</span>  ███████████████████░
+  <span class="t-green">SEO</span>               <span class="t-green">100</span>  ████████████████████
+  <span class="t-green">Social sharing</span>    <span class="t-green">100</span>  ████████████████████
+  <span class="t-green">Accessibility</span>     <span class="t-green">100</span>  ████████████████████
+  <span class="t-green">AI agents</span>         <span class="t-green">100</span>  ████████████████████
 
   <span class="t-bold">Fix these first</span>
-   <span class="t-red">1. FAIL</span> Add Open Graph tags
-   <span class="t-red">2. FAIL</span> Link a privacy policy
-   <span class="t-red">3. FAIL</span> Publish llms.txt</code></pre>
+   <span class="t-amber">1. WARN</span> No analytics (deliberate on this site)</code></pre>
     </div>
 
     <div class="artifact-grid">

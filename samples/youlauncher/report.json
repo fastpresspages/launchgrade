@@ -1,20 +1,20 @@
 {
   "tool": "launchgrade",
   "version": "0.1.0",
-  "generatedAt": "2026-10-23T13:13:26.954Z",
+  "generatedAt": "2026-10-23T14:17:47.774Z",
   "url": "https://fastpresspages.github.io/YouLauncher/",
   "requestedUrl": "https://fastpresspages.github.io/YouLauncher/",
   "httpStatus": 200,
-  "responseMs": 398,
-  "htmlBytes": 9047,
-  "grade": "B-",
-  "score": 71,
-  "label": "Needs polish",
+  "responseMs": 379,
+  "htmlBytes": 16858,
+  "grade": "A+",
+  "score": 100,
+  "label": "Launch-ready",
   "counts": {
-    "pass": 27,
-    "warn": 15,
-    "fail": 3,
-    "info": 8,
+    "pass": 47,
+    "warn": 1,
+    "fail": 0,
+    "info": 5,
     "error": 0,
     "skipped": 0,
     "total": 53
@@ -24,11 +24,11 @@
       "key": "conversion",
       "label": "Conversion",
       "short": "Convert",
-      "score": 93,
+      "score": 100,
       "weight": 25,
       "counts": {
-        "pass": 6,
-        "warn": 1,
+        "pass": 7,
+        "warn": 0,
         "fail": 0
       }
     },
@@ -36,23 +36,23 @@
       "key": "trust",
       "label": "Trust",
       "short": "Trust",
-      "score": 38,
+      "score": 100,
       "weight": 15,
       "counts": {
-        "pass": 1,
-        "warn": 3,
-        "fail": 1
+        "pass": 5,
+        "warn": 0,
+        "fail": 0
       }
     },
     {
       "key": "technical",
       "label": "Technical",
       "short": "Tech",
-      "score": 91,
+      "score": 98,
       "weight": 20,
       "counts": {
-        "pass": 9,
-        "warn": 3,
+        "pass": 11,
+        "warn": 1,
         "fail": 0
       }
     },
@@ -60,11 +60,11 @@
       "key": "seo",
       "label": "SEO",
       "short": "SEO",
-      "score": 79,
+      "score": 100,
       "weight": 15,
       "counts": {
-        "pass": 4,
-        "warn": 5,
+        "pass": 9,
+        "warn": 0,
         "fail": 0
       }
     },
@@ -72,12 +72,12 @@
       "key": "social",
       "label": "Social sharing",
       "short": "Social",
-      "score": 20,
+      "score": 100,
       "weight": 10,
       "counts": {
-        "pass": 0,
-        "warn": 1,
-        "fail": 1
+        "pass": 3,
+        "warn": 0,
+        "fail": 0
       }
     },
     {
@@ -96,79 +96,23 @@
       "key": "agent",
       "label": "AI-agent readiness",
       "short": "Agents",
-      "score": 50,
+      "score": 100,
       "weight": 10,
       "counts": {
-        "pass": 2,
-        "warn": 2,
-        "fail": 1
+        "pass": 7,
+        "warn": 0,
+        "fail": 0
       }
     }
   ],
   "topFixes": [
     {
-      "id": "social.open-graph",
-      "status": "fail",
-      "title": "Has a complete Open Graph card",
-      "detail": "Open Graph is missing og:title, og:description, og:image, og:url.",
-      "fix": "Add all four tags; most chat and social previews use them.",
-      "impact": 6
-    },
-    {
-      "id": "trust.privacy",
-      "status": "fail",
-      "title": "Links a privacy policy",
-      "detail": "No privacy policy link found.",
-      "fix": "Publish a plain-language privacy page and link it in the footer and near every form.",
-      "impact": 5.63
-    },
-    {
-      "id": "agent.llms-txt",
-      "status": "fail",
-      "title": "Publishes llms.txt",
-      "detail": "No /llms.txt found.",
-      "fix": "Add /llms.txt so AI agents get a clean map of your product instead of guessing from HTML.",
-      "impact": 3
-    },
-    {
-      "id": "social.twitter",
+      "id": "tech.analytics",
       "status": "warn",
-      "title": "Has a Twitter/X card",
-      "detail": "No Twitter/X card tags.",
-      "fix": "Add a summary_large_image card so shared links look designed.",
-      "impact": 2
-    },
-    {
-      "id": "trust.terms",
-      "status": "warn",
-      "title": "Links terms of service",
-      "detail": "No terms link found.",
-      "fix": "Add a short terms page. It matters as soon as money changes hands.",
-      "impact": 1.88
-    },
-    {
-      "id": "conv.contact",
-      "status": "warn",
-      "title": "Offers a human contact path",
-      "detail": "No email or contact link found.",
-      "fix": "Add a real email or a contact page. Buyers check for a human before they convert.",
-      "impact": 1.67
-    },
-    {
-      "id": "agent.robots-ai",
-      "status": "warn",
-      "title": "Lets AI crawlers in",
-      "detail": "No robots.txt, so AI crawler access is undefined.",
-      "fix": "Publish robots.txt and explicitly allow the agents you want citations from.",
-      "impact": 1
-    },
-    {
-      "id": "agent.faq",
-      "status": "warn",
-      "title": "Answers buying questions",
-      "detail": "No FAQ section or FAQ schema found.",
-      "fix": "Add 3–5 real objections (“Is it free?”, “How long does it take?”) and FAQPage schema.",
-      "impact": 1
+      "title": "Measures visits",
+      "detail": "No analytics detected.",
+      "fix": "Add privacy-friendly analytics (Plausible, Umami, or a simple counter) before you announce.",
+      "impact": 0.45
     }
   ],
   "checks": [
@@ -178,7 +122,7 @@
       "title": "Has an email capture",
       "status": "pass",
       "weight": 3,
-      "detail": "3 forms can capture an email.",
+      "detail": "4 forms can capture an email.",
       "fix": ""
     },
     {
@@ -196,7 +140,7 @@
       "title": "Shows social proof",
       "status": "pass",
       "weight": 2,
-      "detail": "Social proof language found (“testimonial”).",
+      "detail": "Social proof language found (“review”).",
       "fix": ""
     },
     {
@@ -212,10 +156,10 @@
       "id": "conv.contact",
       "category": "conversion",
       "title": "Offers a human contact path",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No email or contact link found.",
-      "fix": "Add a real email or a contact page. Buyers check for a human before they convert."
+      "detail": "Direct email link found (meetcode99@gmail.com).",
+      "fix": ""
     },
     {
       "id": "conv.value-prop",
@@ -239,37 +183,37 @@
       "id": "trust.privacy",
       "category": "trust",
       "title": "Links a privacy policy",
-      "status": "fail",
+      "status": "pass",
       "weight": 3,
-      "detail": "No privacy policy link found.",
-      "fix": "Publish a plain-language privacy page and link it in the footer and near every form."
+      "detail": "Privacy policy link found.",
+      "fix": ""
     },
     {
       "id": "trust.terms",
       "category": "trust",
       "title": "Links terms of service",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No terms link found.",
-      "fix": "Add a short terms page. It matters as soon as money changes hands."
+      "detail": "Terms link found.",
+      "fix": ""
     },
     {
       "id": "trust.about",
       "category": "trust",
       "title": "Explains who is behind the page",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "No about or team link found.",
-      "fix": "Add a short “who we are” section. Anonymous launch pages convert worse."
+      "detail": "About/team link found (“About”).",
+      "fix": ""
     },
     {
       "id": "trust.social-presence",
       "category": "trust",
       "title": "Links a real social profile",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "No social profile links found.",
-      "fix": "Link one active profile. An abandoned profile is worse than none."
+      "detail": "Social profile linked (github.com).",
+      "fix": ""
     },
     {
       "id": "trust.security-txt",
@@ -313,7 +257,7 @@
       "title": "Loads the HTML quickly",
       "status": "pass",
       "weight": 2,
-      "detail": "HTML arrived in 398 ms.",
+      "detail": "HTML arrived in 379 ms.",
       "fix": ""
     },
     {
@@ -356,10 +300,10 @@
       "id": "tech.canonical",
       "category": "technical",
       "title": "Declares a canonical URL",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No canonical link tag.",
-      "fix": "Add <link rel=\"canonical\" href=\"https://yourdomain.com/\"> to prevent duplicate-URL dilution."
+      "detail": "Canonical: https://fastpresspages.github.io/YouLauncher/.",
+      "fix": ""
     },
     {
       "id": "tech.lang",
@@ -374,10 +318,10 @@
       "id": "tech.favicon",
       "category": "technical",
       "title": "Has a favicon",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "No favicon link found.",
-      "fix": "Add a 32×32 and 180×180 icon; browsers and tabs look unfinished without one."
+      "detail": "Favicon linked (favicon.svg).",
+      "fix": ""
     },
     {
       "id": "tech.mixed-content",
@@ -412,7 +356,7 @@
       "title": "Has a meta description",
       "status": "pass",
       "weight": 3,
-      "detail": "Description is 152 characters.",
+      "detail": "Description is 158 characters.",
       "fix": ""
     },
     {
@@ -428,10 +372,10 @@
       "id": "seo.heading-order",
       "category": "seo",
       "title": "Uses a sane heading outline",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "Heading levels skip a step.",
-      "fix": "Do not jump from H1 to H3; use H2 for sections."
+      "detail": "16 headings, 6 H2 sections.",
+      "fix": ""
     },
     {
       "id": "seo.alt",
@@ -446,37 +390,37 @@
       "id": "seo.sitemap",
       "category": "seo",
       "title": "Publishes a sitemap",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No sitemap.xml found.",
-      "fix": "Generate /sitemap.xml and submit it in Google Search Console."
+      "detail": "sitemap.xml is valid XML.",
+      "fix": ""
     },
     {
       "id": "seo.robots",
       "category": "seo",
       "title": "Publishes robots.txt",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "No robots.txt found.",
-      "fix": "Add a simple robots.txt that points to your sitemap."
+      "detail": "robots.txt is published.",
+      "fix": ""
     },
     {
       "id": "seo.schema",
       "category": "seo",
       "title": "Adds structured data",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No JSON-LD structured data.",
-      "fix": "Add Organization + WebSite (or Product/SoftwareApplication) schema in one script tag."
+      "detail": "JSON-LD found: Organization, WebSite, FAQPage.",
+      "fix": ""
     },
     {
       "id": "seo.internal-links",
       "category": "seo",
       "title": "Links its own pages",
-      "status": "warn",
+      "status": "pass",
       "weight": 1,
-      "detail": "No internal links found.",
-      "fix": "Add a footer with links to your key pages."
+      "detail": "4 internal links found.",
+      "fix": ""
     },
     {
       "id": "seo.text-ratio",
@@ -484,34 +428,34 @@
       "title": "Has readable copy in the HTML",
       "status": "pass",
       "weight": 1,
-      "detail": "39.8% of the HTML is readable text.",
+      "detail": "32.3% of the HTML is readable text.",
       "fix": ""
     },
     {
       "id": "social.open-graph",
       "category": "social",
       "title": "Has a complete Open Graph card",
-      "status": "fail",
+      "status": "pass",
       "weight": 3,
-      "detail": "Open Graph is missing og:title, og:description, og:image, og:url.",
-      "fix": "Add all four tags; most chat and social previews use them."
+      "detail": "og:title, og:description, og:image and og:url are all set.",
+      "fix": ""
     },
     {
       "id": "social.twitter",
       "category": "social",
       "title": "Has a Twitter/X card",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No Twitter/X card tags.",
-      "fix": "Add a summary_large_image card so shared links look designed."
+      "detail": "twitter:card=summary_large_image with an image.",
+      "fix": ""
     },
     {
       "id": "social.og-image-alt",
       "category": "social",
       "title": "Describes the share image",
-      "status": "info",
+      "status": "pass",
       "weight": 1,
-      "detail": "No OG image to describe.",
+      "detail": "og:image:alt is set.",
       "fix": ""
     },
     {
@@ -520,7 +464,7 @@
       "title": "Labels its form fields",
       "status": "pass",
       "weight": 2,
-      "detail": "3/3 fields are labelled.",
+      "detail": "7/7 fields are labelled.",
       "fix": ""
     },
     {
@@ -529,7 +473,7 @@
       "title": "Gives buttons accessible names",
       "status": "pass",
       "weight": 2,
-      "detail": "4 buttons have a name.",
+      "detail": "5 buttons have a name.",
       "fix": ""
     },
     {
@@ -572,37 +516,37 @@
       "id": "agent.llms-txt",
       "category": "agent",
       "title": "Publishes llms.txt",
-      "status": "fail",
+      "status": "pass",
       "weight": 3,
-      "detail": "No /llms.txt found.",
-      "fix": "Add /llms.txt so AI agents get a clean map of your product instead of guessing from HTML."
+      "detail": "llms.txt is published with a title and content.",
+      "fix": ""
     },
     {
       "id": "agent.llms-full",
       "category": "agent",
       "title": "Offers a full-context file",
-      "status": "info",
+      "status": "pass",
       "weight": 1,
-      "detail": "No llms-full.txt (optional).",
-      "fix": "Add the long-form version if agents need your docs in one request."
+      "detail": "llms-full.txt is available (3 KB).",
+      "fix": ""
     },
     {
       "id": "agent.robots-ai",
       "category": "agent",
       "title": "Lets AI crawlers in",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No robots.txt, so AI crawler access is undefined.",
-      "fix": "Publish robots.txt and explicitly allow the agents you want citations from."
+      "detail": "All 6 major AI/search crawlers are allowed.",
+      "fix": ""
     },
     {
       "id": "agent.agents-md",
       "category": "agent",
       "title": "Speaks to coding agents",
-      "status": "info",
+      "status": "pass",
       "weight": 1,
-      "detail": "No AGENTS.md (emerging convention).",
-      "fix": "Add AGENTS.md if developers or coding agents integrate with your product."
+      "detail": "AGENTS.md is published.",
+      "fix": ""
     },
     {
       "id": "agent.markdown",
@@ -626,10 +570,10 @@
       "id": "agent.faq",
       "category": "agent",
       "title": "Answers buying questions",
-      "status": "warn",
+      "status": "pass",
       "weight": 2,
-      "detail": "No FAQ section or FAQ schema found.",
-      "fix": "Add 3–5 real objections (“Is it free?”, “How long does it take?”) and FAQPage schema."
+      "detail": "FAQPage structured data is present.",
+      "fix": ""
     },
     {
       "id": "agent.semantic-html",
@@ -646,7 +590,7 @@
       "title": "Works without JavaScript",
       "status": "pass",
       "weight": 2,
-      "detail": "3605 characters of copy are in the HTML.",
+      "detail": "5443 characters of copy are in the HTML.",
       "fix": ""
     }
   ]

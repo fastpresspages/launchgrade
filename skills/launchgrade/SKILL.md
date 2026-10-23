@@ -88,7 +88,7 @@ Labels: ≥90 Launch-ready, ≥80 Almost there, ≥70 Needs polish, ≥60 Risky 
 Keep the default summary under ~200 words:
 
 ```markdown
-**B− 71/100 — Needs polish** (45 scored: 27 pass, 15 warn, 3 fail)
+**A+ 100/100 - Launch-ready** (48 scored: 47 pass, 1 warn, 0 fail; the warning is a deliberate no-analytics choice)
 
 | Category | Score |
 | --- | ---: |

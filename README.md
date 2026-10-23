@@ -15,7 +15,7 @@ One command scans any public launch page across **53 checks in 7 categories**, t
 [![Checks](https://img.shields.io/badge/checks-53-A78BFA.svg)](src/checks.js)
 [![MCP ready](https://img.shields.io/badge/MCP-ready-08080A.svg)](mcp/server.js)
 [![Agent skill](https://img.shields.io/badge/agent-skill-C6FF4A.svg)](skills/launchgrade/SKILL.md)
-[![Sample grade](https://img.shields.io/badge/sample_grade-B--%2071%2F100-FFB020.svg)](samples/youlauncher/report.html)
+[![Sample grade](https://img.shields.io/badge/sample_grade-A%2B%20100%2F100-3DDC84.svg)](samples/youlauncher/report.html)
 
 [Free page audit](https://fastpresspages.github.io/launchgrade/#audit) ·
 [Sample report](samples/youlauncher/report.html) ·
@@ -93,31 +93,31 @@ A normal run takes well under a second on a small page. The timeout is 15 second
 
 ## Example
 
-This is a real scan of the current [YouLauncher](https://fastpresspages.github.io/YouLauncher/) page, included in [`samples/youlauncher`](samples/youlauncher):
+This is a real pair of scans of [YouLauncher](https://fastpresspages.github.io/YouLauncher/). The [before report](samples/youlauncher-before/report.html) graded **B- 71/100**. After the rebuild, the [current report](samples/youlauncher/report.html) grades **A+ 100/100**. Same tool, same public URL, both dated 23 Oct 2026.
 
 ```text
   ▲ LaunchGrade  v0.1.0  ·  fastpresspages.github.io
   https://fastpresspages.github.io/YouLauncher/
-  Scanned 10/23/2026, 6:43:26 PM  ·  398 ms  ·  9 KB HTML
+  Scanned 10/23/2026, 7:47:47 PM  ·  379 ms  ·  16 KB HTML
 
   ┌──────────────────────────────────────────────┐
-  │  B-  71/100   Needs polish                   │
+  │  A+  100/100   Launch-ready                  │
   └──────────────────────────────────────────────┘
-  45 scored checks  ·  27 pass  15 warn  3 fail  8 info
+  48 scored checks  ·  47 pass  1 warn  0 fail  5 info
 
-  Conversion         93  ███████████████████░
-  Trust              38  ████████░░░░░░░░░░░░
-  Technical          91  ██████████████████░░
-  SEO                79  ████████████████░░░░
-  Social sharing     20  ████░░░░░░░░░░░░░░░░
+  Conversion        100  ████████████████████
+  Trust             100  ████████████████████
+  Technical          98  ███████████████████░
+  SEO               100  ████████████████████
+  Social sharing    100  ████████████████████
   Accessibility     100  ████████████████████
-  AI-agent readiness 50  ██████████░░░░░░░░░░
+  AI-agent readiness 100 ████████████████████
 
   Fix these first
-   1. FAIL [Social] Has a complete Open Graph card
-   2. FAIL [Trust]  Links a privacy policy
-   3. FAIL [Agents] Publishes llms.txt
+   1. WARN [Tech] Measures visits
 ```
+
+The one warning is deliberate: the site does not track visitors. LaunchGrade still flags it because most launch pages should measure something before they announce. This is a dated snapshot, not a guarantee about future performance.
 
 The HTML report is self-contained: share it, print it, or commit it. The badge is a plain SVG you can put in your README.
 
