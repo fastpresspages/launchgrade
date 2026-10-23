@@ -210,6 +210,41 @@ test('MCP server initializes, lists tools and grades via the tool contract', asy
   assert.equal(unknown.isError, true);
 });
 
+test('well-known files resolve inside a project page path', async () => {
+  const server = createServer((req, res) => {
+    if (req.url === '/launchgrade/' || req.url === '/launchgrade/index.html') {
+      res.writeHead(200, { 'content-type': 'text/html' });
+      res.end(GOOD_HTML);
+      return;
+    }
+    if (req.url === '/launchgrade/robots.txt') {
+      res.writeHead(200, { 'content-type': 'text/plain' });
+      res.end('User-agent: *\nAllow: /\n');
+      return;
+    }
+    if (req.url === '/launchgrade/llms.txt') {
+      res.writeHead(200, { 'content-type': 'text/plain' });
+      res.end('# LaunchGrade\n\n> A launch page grader.\n');
+      return;
+    }
+    res.writeHead(404, { 'content-type': 'text/plain' });
+    res.end('not found');
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const { port } = server.address();
+  try {
+    const { ctx } = await audit(`http://127.0.0.1:${port}/launchgrade/`, { timeout: 5000 });
+    assert.equal(ctx.extras.robots.status, 200);
+    assert.match(ctx.extras.robots.url, /\/launchgrade\/robots\.txt$/);
+    assert.equal(ctx.extras.llms.status, 200);
+    assert.match(ctx.extras.llms.url, /\/launchgrade\/llms\.txt$/);
+    assert.equal(ctx.extras.sitemap.status, 404);
+  } finally {
+    server.close();
+  }
+});
+
 test('audit fetches a real local page and its missing well-known files', async () => {
   const server = createServer((req, res) => {
     if (req.url === '/') {

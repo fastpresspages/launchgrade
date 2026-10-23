@@ -7,15 +7,15 @@ export const VERSION = '0.1.0';
 export const USER_AGENT = `LaunchGrade/${VERSION} (+https://github.com/fastpresspages/launchgrade)`;
 
 const EXTRA_PATHS = {
-  robots: '/robots.txt',
-  sitemap: '/sitemap.xml',
-  llms: '/llms.txt',
-  llmsFull: '/llms-full.txt',
-  security: '/.well-known/security.txt',
-  agents: '/agents.md',
-  agentsUpper: '/AGENTS.md',
-  mcp: '/.well-known/mcp.json',
-  openapi: '/.well-known/openapi.json',
+  robots: 'robots.txt',
+  sitemap: 'sitemap.xml',
+  llms: 'llms.txt',
+  llmsFull: 'llms-full.txt',
+  security: '.well-known/security.txt',
+  agents: 'agents.md',
+  agentsUpper: 'AGENTS.md',
+  mcp: '.well-known/mcp.json',
+  openapi: '.well-known/openapi.json',
 };
 
 export async function buildContext(url, options = {}) {
@@ -25,12 +25,12 @@ export async function buildContext(url, options = {}) {
 
   const finalUrl = main.url || url;
   const base = new URL(finalUrl);
+  const bases = extraBases(finalUrl);
   const extras = {};
 
   if (options.extras !== false) {
     const tasks = Object.entries(EXTRA_PATHS).map(async ([key, path]) => {
-      const target = new URL(path, base).href;
-      extras[key] = await fetchSmall(target, { timeout: Math.min(timeout, 5000) });
+      extras[key] = await fetchExtra(path, bases, { timeout: Math.min(timeout, 5000) });
     });
     tasks.push(
       (async () => {
@@ -102,6 +102,30 @@ export async function fetchPage(url, { timeout = 15000, maxBytes = 3_000_000 } =
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Well-known files normally live at the site root. On project pages (for
+ * example https://org.github.io/repo/) the deploy root includes the repo path,
+ * so try the page directory first and fall back to the domain root.
+ */
+function extraBases(url) {
+  const page = new URL(url);
+  const dir = new URL(page.href);
+  if (!dir.pathname.endsWith('/')) {
+    dir.pathname = dir.pathname.replace(/[^/]*$/, '');
+  }
+  const root = new URL('/', page.origin);
+  return dir.href === root.href ? [dir] : [dir, root];
+}
+
+async function fetchExtra(path, bases, options) {
+  let last;
+  for (const base of bases) {
+    last = await fetchSmall(new URL(path, base).href, options);
+    if (last.ok) return last;
+  }
+  return last;
 }
 
 async function fetchSmall(url, { timeout = 5000 } = {}) {
