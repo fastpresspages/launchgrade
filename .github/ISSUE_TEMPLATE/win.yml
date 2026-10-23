@@ -1,0 +1,42 @@
+name: Launch win
+description: Tell us what LaunchGrade caught before you shipped.
+title: "[win] "
+labels: ["win"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Real launch stories make the tool better. Please do not share private analytics or anything you do not have permission to publish.
+  - type: input
+    id: url
+    attributes:
+      label: What did you launch?
+      placeholder: https://your-project.com
+    validations:
+      required: true
+  - type: input
+    id: grade
+    attributes:
+      label: Grade before and after
+      placeholder: B- 71 → A- 87
+    validations:
+      required: true
+  - type: textarea
+    id: fixed
+    attributes:
+      label: What did LaunchGrade catch?
+      description: The most useful failure or fix.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened after?
+      description: Optional. Traffic, replies, signups, or simply “it felt less broken.” No need to invent numbers.
+  - type: checkboxes
+    id: permission
+    attributes:
+      label: Permission
+      options:
+        - label: You may quote this story on the LaunchGrade site or README with attribution.
+          required: false

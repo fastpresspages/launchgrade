@@ -1,0 +1,5 @@
+Contact: mailto:meetcode99@gmail.com
+Expires: 2027-10-23T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://fastpresspages.github.io/launchgrade/.well-known/security.txt
+Policy: https://github.com/fastpresspages/launchgrade/blob/main/SECURITY.md

@@ -1,0 +1,148 @@
+# LaunchGrade — full context for AI agents
+
+> LaunchGrade is a free, open-source, zero-dependency launch audit from FastPress Labs. It grades a public page across 53 checks in 7 weighted categories and returns prioritized fixes. No account, no telemetry, no paid API. Node.js 18.17+.
+
+Canonical URL: https://fastpresspages.github.io/launchgrade/
+Source: https://github.com/fastpresspages/launchgrade
+License: Apache-2.0
+Contact: meetcode99@gmail.com
+Last updated: 2026-10-23
+
+## How to run it
+
+```bash
+npx -p github:fastpresspages/launchgrade launchgrade https://example.com
+```
+
+Write all report artifacts:
+
+```bash
+launchgrade example.com --out reports
+# report.html, report.json, report.md, badge.svg, fix-plan.md
+```
+
+Use in CI:
+
+```yaml
+- uses: fastpresspages/launchgrade@main
+  with:
+    url: https://example.com
+    fail-under: 80
+```
+
+Use as an MCP server:
+
+```json
+{
+  "mcpServers": {
+    "launchgrade": {
+      "command": "npx",
+      "args": ["-y", "-p", "github:fastpresspages/launchgrade", "launchgrade-mcp"]
+    }
+  }
+}
+```
+
+MCP tools: `grade_launch` (url, format markdown/json, max_fixes), `get_fix_plan` (url), `list_checks` (no arguments).
+
+## Scoring
+
+Each check is pass (1), warn (0.5), fail/error (0), or info (excluded). Categories are normalized to 100 and weighted:
+
+| Category | Weight |
+| --- | ---: |
+| Conversion | 25% |
+| Trust | 15% |
+| Technical | 20% |
+| SEO | 15% |
+| Social sharing | 10% |
+| Accessibility | 5% |
+| AI-agent readiness | 10% |
+
+Grades: A+ >=95, A >=90, A- >=85, B+ >=80, B >=75, B- >=70, C+ >=65, C >=60, C- >=55, D >=40, F <40.
+Labels: Launch-ready >=90, Almost there >=80, Needs polish >=70, Risky launch >=60, Not ready <60.
+
+## Full checklist
+
+### Conversion (25%)
+- conv.email-capture — Has an email capture
+- conv.cta — Has a specific call to action
+- conv.social-proof — Shows social proof
+- conv.friction — Keeps signup friction low
+- conv.contact — Offers a human contact path
+- conv.value-prop — States a clear value proposition
+- conv.risk-reversal — Reverses the risk of clicking
+
+### Trust (15%)
+- trust.privacy — Links a privacy policy
+- trust.terms — Links terms of service
+- trust.about — Explains who is behind the page
+- trust.social-presence — Links a real social profile
+- trust.security-txt — Publishes a security contact
+- trust.copyright — Shows a current footer
+
+### Technical (20%)
+- tech.https — Serves over HTTPS
+- tech.status — Returns a healthy status
+- tech.speed — Loads the HTML quickly
+- tech.compression — Compresses the response
+- tech.cache — Sets cache headers
+- tech.viewport — Is mobile-ready
+- tech.indexable — Allows search indexing
+- tech.canonical — Declares a canonical URL
+- tech.lang — Declares the page language
+- tech.favicon — Has a favicon
+- tech.mixed-content — Avoids mixed content
+- tech.analytics — Measures visits
+
+### SEO (15%)
+- seo.title — Has a well-sized title
+- seo.description — Has a meta description
+- seo.h1 — Has exactly one H1
+- seo.heading-order — Uses a sane heading outline
+- seo.alt — Describes its images
+- seo.sitemap — Publishes a sitemap
+- seo.robots — Publishes robots.txt
+- seo.schema — Adds structured data
+- seo.internal-links — Links its own pages
+- seo.text-ratio — Has readable copy in the HTML
+
+### Social sharing (10%)
+- social.open-graph — Has a complete Open Graph card
+- social.twitter — Has a Twitter/X card
+- social.og-image-alt — Describes the share image
+
+### Accessibility (5%)
+- a11y.form-labels — Labels its form fields
+- a11y.button-names — Gives buttons accessible names
+- a11y.link-text — Writes descriptive link text
+- a11y.landmarks — Uses landmark elements
+- a11y.zoom — Allows pinch-zoom
+- a11y.skip-link — Offers a skip link
+
+### AI-agent readiness (10%)
+- agent.llms-txt — Publishes llms.txt
+- agent.llms-full — Offers a full-context file
+- agent.robots-ai — Lets AI crawlers in
+- agent.agents-md — Speaks to coding agents
+- agent.markdown — Serves markdown to agents
+- agent.mcp — Exposes a machine-readable API
+- agent.faq — Answers buying questions
+- agent.semantic-html — Uses semantic HTML
+- agent.no-js-copy — Works without JavaScript
+
+## What it does not do
+
+- It does not execute JavaScript or render the page in a browser.
+- It does not log in, bypass paywalls or scan private pages.
+- It does not measure Core Web Vitals; use Lighthouse or CrUX for that.
+- It does not guarantee rankings, conversions or revenue.
+- It does not use AI to invent findings. Every check is deterministic code.
+
+## Real sample
+
+A scan of https://fastpresspages.github.io/YouLauncher/ on 23 October 2026 returned B- 71/100: conversion 93, trust 38, technical 91, SEO 79, social 20, accessibility 100, AI-agent readiness 50. The full report is at https://fastpresspages.github.io/launchgrade/samples/youlauncher/report.html. This is a dated snapshot, not a claim about current performance.
+
+## Free human audit
+
+https://fastpresspages.github.io/launchgrade/#audit — send the URL, what you are launching and what is stuck. A human reads it and replies. Also open to honest collaborations, sponsorships and deals: meetcode99@gmail.com.

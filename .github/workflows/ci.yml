@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Test
+        run: node --test
+      - name: CLI smoke test
+        run: node bin/launchgrade.js --list
+      - name: Self-audit the live site (main only)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22 && github.ref == 'refs/heads/main'
+        run: node bin/launchgrade.js https://fastpresspages.github.io/launchgrade/ --fail-under 0 --out .self-audit --quiet
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22 && github.ref == 'refs/heads/main'
+        with:
+          name: self-audit
+          path: .self-audit

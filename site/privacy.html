@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — LaunchGrade</title>
+<meta name="description" content="How LaunchGrade handles data: no analytics, no cookies, no tracking. The CLI runs locally; the audit form is delivered by FormSubmit.">
+<link rel="canonical" href="https://fastpresspages.github.io/launchgrade/privacy.html">
+<meta name="theme-color" content="#08080A">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="noise" aria-hidden="true"></div>
+<header class="site-head">
+  <nav class="nav wrap" aria-label="Main">
+    <a class="brand" href="index.html" aria-label="LaunchGrade home">
+      <span class="brand-mark" aria-hidden="true">LG</span>
+      <span class="brand-word">Launch<span>Grade</span></span>
+    </a>
+    <div class="nav-links" style="display:flex">
+      <a href="index.html#checks">Checks</a>
+      <a href="index.html#audit">Free audit</a>
+      <a href="https://github.com/fastpresspages/launchgrade">GitHub ↗</a>
+    </div>
+  </nav>
+</header>
+<main id="main" class="wrap legal">
+  <p class="kicker">Small print, plain language</p>
+  <h1>Privacy</h1>
+  <p class="updated">Effective 23 October 2026</p>
+
+  <p>LaunchGrade is a free, open-source tool from FastPress Labs. The short version: the CLI runs on your machine and sends nothing to us. This website has no analytics, no advertising pixels and no cookies. If you send the audit form, we receive what you typed so a human can reply.</p>
+
+  <h2>1. Who runs this</h2>
+  <p>FastPress Labs is a small open-source community. For anything privacy-related, email <a href="mailto:meetcode99@gmail.com">meetcode99@gmail.com</a>. The source code is at <a href="https://github.com/fastpresspages/launchgrade">github.com/fastpresspages/launchgrade</a>.</p>
+
+  <h2>2. What the CLI collects</h2>
+  <p>Nothing. The CLI fetches the public page you ask it to scan, plus a small allowlist of public files such as <code>robots.txt</code>, <code>sitemap.xml</code>, <code>llms.txt</code> and <code>security.txt</code>. Those requests go directly from your machine to the site you named. LaunchGrade has no telemetry, no account system and no phone-home call. Reports are written only where you ask them to be written.</p>
+
+  <h2>3. What the audit form collects</h2>
+  <p>If you submit the form, we receive:</p>
+  <ul>
+    <li>your email address;</li>
+    <li>the page URL you optionally provide;</li>
+    <li>the type of request you select;</li>
+    <li>your message;</li>
+    <li>the page name and a timestamp added by the form.</li>
+  </ul>
+  <p>We use this only to read your request and reply. We do not add you to a marketing list, sell your data, or use it to train a model. If you ask for a free audit, a human reads the public page you named and replies by email.</p>
+
+  <h2>4. FormSubmit</h2>
+  <p>The form is delivered by <a href="https://formsubmit.co/" rel="noopener">FormSubmit</a>, a third-party form-to-email service. When you submit, FormSubmit processes your message and forwards it to the FastPress Labs inbox. FormSubmit's own privacy policy applies to that processing. We do not control its infrastructure.</p>
+
+  <h2>5. Hosting and logs</h2>
+  <p>This site is hosted on GitHub Pages. GitHub may process standard request data such as IP addresses and user agents to serve and secure the site, as described in GitHub's privacy statement. We do not have an analytics dashboard and do not receive visitor-level reports.</p>
+
+  <h2>6. Fonts</h2>
+  <p>The site loads Inter and Space Grotesk from Google Fonts. That request shares your IP address and browser information with Google. If you prefer to avoid that, block the font request; the site falls back to system fonts and remains fully usable.</p>
+
+  <h2>7. Cookies and local storage</h2>
+  <p>This site sets no cookies and uses no local storage. The form does not remember your answers after you leave the page.</p>
+
+  <h2>8. Retention</h2>
+  <p>Audit and collaboration emails stay in the FastPress Labs inbox while the conversation is active and for as long as needed to keep a record of the work. Ask us to delete your message and we will do so unless we are required to keep it for legal or security reasons.</p>
+
+  <h2>9. Your choices</h2>
+  <ul>
+    <li>Ask for a copy of what we hold about you.</li>
+    <li>Ask us to correct or delete it.</li>
+    <li>Use the CLI without ever contacting us.</li>
+    <li>Block Google Fonts or JavaScript; the site still works.</li>
+  </ul>
+  <p>Email <a href="mailto:meetcode99@gmail.com">meetcode99@gmail.com</a> and we will respond within a reasonable time.</p>
+
+  <h2>10. Children</h2>
+  <p>LaunchGrade is a developer tool and is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child submitted data, contact us and we will delete it.</p>
+
+  <h2>11. Changes</h2>
+  <p>If this policy changes, the effective date above will change and the new version will be published on this page. Material changes will be noted in the repository.</p>
+
+  <a class="back" href="index.html">← Back to LaunchGrade</a>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-bottom">
+    <span>© <span id="year">2026</span> FastPress Labs. Built in public.</span>
+    <span class="foot-status"><i aria-hidden="true"></i> <a href="terms.html" style="color:inherit">Terms</a></span>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

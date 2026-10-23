@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Free human audit
+    url: https://fastpresspages.github.io/launchgrade/#audit
+    about: Ask for a human review of your launch page. Free, no account.
+  - name: Questions and ideas
+    url: https://github.com/fastpresspages/launchgrade/discussions
+    about: Ask a question, share a launch, or suggest a direction.
+  - name: Security report
+    url: https://github.com/fastpresspages/launchgrade/security/advisories/new
+    about: Report a vulnerability privately. Do not open a public issue.
+  - name: Email FastPress Labs
+    url: mailto:meetcode99@gmail.com
+    about: Collaborations, deals, sponsorships and anything private.

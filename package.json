@@ -1,0 +1,57 @@
+{
+  "name": "launchgrade",
+  "version": "0.1.0",
+  "description": "Grade any launch page in 60 seconds. Conversion, trust, SEO, social, accessibility and AI-agent readiness — one command, zero dependencies.",
+  "type": "module",
+  "bin": {
+    "launchgrade": "bin/launchgrade.js",
+    "launchgrade-mcp": "mcp/server.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./mcp": "./mcp/server.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "mcp",
+    "skills",
+    "action.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "scan": "node bin/launchgrade.js",
+    "mcp": "node mcp/server.js",
+    "site": "node scripts/serve.js",
+    "audit:self": "node bin/launchgrade.js https://fastpresspages.github.io/launchgrade/ --out .self-audit"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "keywords": [
+    "launch",
+    "audit",
+    "lighthouse",
+    "seo",
+    "conversion",
+    "aeo",
+    "llms-txt",
+    "ai-agents",
+    "mcp",
+    "indie-hackers",
+    "cli",
+    "zero-dependencies"
+  ],
+  "author": "FastPress Labs",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastpresspages/launchgrade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fastpresspages/launchgrade/issues"
+  },
+  "homepage": "https://fastpresspages.github.io/launchgrade/"
+}

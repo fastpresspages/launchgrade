@@ -1,0 +1,63 @@
+name: LaunchGrade
+description: Grade a public launch page and fail the job when the score is too low.
+author: FastPress Labs
+branding:
+  icon: bar-chart-2
+  color: green
+
+inputs:
+  url:
+    description: Public URL to audit (https is added when missing).
+    required: true
+  fail-under:
+    description: Minimum score (0-100). The step fails below this. Use 0 to only report.
+    required: false
+    default: "0"
+  ignore:
+    description: Comma-separated check IDs to skip, e.g. seo.text-ratio,social.og-image-alt.
+    required: false
+    default: ""
+  out:
+    description: Directory for report.html, report.json, report.md, badge.svg and fix-plan.md.
+    required: false
+    default: launchgrade-report
+  timeout:
+    description: Per-request timeout in milliseconds.
+    required: false
+    default: "15000"
+  fast:
+    description: Set to true to skip robots.txt, sitemap.xml, llms.txt and other extras.
+    required: false
+    default: "false"
+  format:
+    description: Also print the report as terminal, markdown or json.
+    required: false
+    default: terminal
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    - name: Run LaunchGrade
+      shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_FAIL_UNDER: ${{ inputs.fail-under }}
+        INPUT_IGNORE: ${{ inputs.ignore }}
+        INPUT_OUT: ${{ inputs.out }}
+        INPUT_TIMEOUT: ${{ inputs.timeout }}
+        INPUT_FAST: ${{ inputs.fast }}
+        INPUT_FORMAT: ${{ inputs.format }}
+        LAUNCHGRADE_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        set -euo pipefail
+        args=("$INPUT_URL" "--out" "$INPUT_OUT" "--timeout" "$INPUT_TIMEOUT")
+        if [ -n "$INPUT_IGNORE" ]; then args+=("--ignore" "$INPUT_IGNORE"); fi
+        if [ "$INPUT_FAST" = "true" ]; then args+=("--fast"); fi
+        if [ -n "$INPUT_FAIL_UNDER" ]; then args+=("--fail-under" "$INPUT_FAIL_UNDER"); fi
+        if [ -n "$INPUT_FORMAT" ]; then args+=("--format" "$INPUT_FORMAT"); fi
+        node "$LAUNCHGRADE_ACTION_PATH/bin/launchgrade.js" "${args[@]}"

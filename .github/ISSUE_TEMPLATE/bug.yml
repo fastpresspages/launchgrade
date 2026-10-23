@@ -1,0 +1,55 @@
+name: Bug report
+description: Something crashed, hung or produced the wrong report.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing LaunchGrade. Please reduce the page to the smallest useful example if it is not public.
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      description: The public URL you scanned. Leave blank if private.
+      placeholder: https://example.com
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      description: The exact command you ran.
+      placeholder: node bin/launchgrade.js example.com --out reports
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version and OS
+      placeholder: Node 22.11, Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Paste the output or error. Remove tokens or private data first.
+      render: shell
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmations
+      options:
+        - label: I am allowed to scan this URL.
+          required: true
+        - label: I searched existing issues first.
+          required: true
+        - label: I removed secrets and private data from the report.
+          required: true

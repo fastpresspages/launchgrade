@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="LaunchGrade logo">
+  <rect width="128" height="128" rx="30" fill="#C6FF4A"/>
+  <path d="M34 92V36h14v44h30v12H34Z" fill="#08080A"/>
+  <path d="M86 46h12v12H86zM86 70h12v12H86z" fill="#08080A" opacity="0.5"/>
+</svg>

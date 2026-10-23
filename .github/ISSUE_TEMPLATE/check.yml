@@ -1,0 +1,60 @@
+name: Check proposal
+description: Propose a new check or challenge an existing one.
+title: "[check] "
+labels: ["checks"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Good checks are specific, observable in HTML, and fixable by the page owner. Avoid aesthetics and framework opinions.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Conversion
+        - Trust
+        - Technical
+        - SEO
+        - Social sharing
+        - Accessibility
+        - AI-agent readiness
+        - Change an existing check
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What should be checked?
+      description: One sentence a non-expert can understand.
+      placeholder: The page should link a refund policy near pricing.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does this matter for a launch?
+      description: Explain the failure mode, not just best practice.
+    validations:
+      required: true
+  - type: textarea
+    id: detection
+    attributes:
+      label: How can it be detected without a browser or paid API?
+      description: Selectors, links, headers, schema, well-known files. Mention false positives.
+    validations:
+      required: true
+  - type: input
+    id: example
+    attributes:
+      label: Example page that passes or fails
+      placeholder: https://example.com
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmations
+      options:
+        - label: This check does not reward deceptive or dark-pattern behavior.
+          required: true
+        - label: This can run with zero dependencies.
+          required: true

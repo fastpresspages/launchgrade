@@ -1,0 +1,24 @@
+{
+  "name": "launchgrade",
+  "description": "Free, zero-dependency launch audit CLI and MCP server from FastPress Labs.",
+  "version": "0.1.0",
+  "transport": "stdio",
+  "install": "npx -y -p github:fastpresspages/launchgrade launchgrade-mcp",
+  "repository": "https://github.com/fastpresspages/launchgrade",
+  "documentation": "https://fastpresspages.github.io/launchgrade/llms-full.txt",
+  "tools": [
+    {
+      "name": "grade_launch",
+      "description": "Audit a public URL and return a graded report."
+    },
+    {
+      "name": "get_fix_plan",
+      "description": "Return a prioritized fix plan for a public URL."
+    },
+    {
+      "name": "list_checks",
+      "description": "List every check, its category and weight."
+    }
+  ],
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaunchGrade — Grade your launch before the internet does</title>
+<meta name="description" content="LaunchGrade scans any public launch page across 53 checks in 7 categories, then gives you the fixes that matter first. Free, open source, zero dependencies.">
+<link rel="canonical" href="https://fastpresspages.github.io/launchgrade/">
+<meta name="theme-color" content="#08080A">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add("js");</script>
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LaunchGrade">
+<meta property="og:title" content="LaunchGrade — Grade your launch before the internet does">
+<meta property="og:description" content="53 checks across conversion, trust, technical, SEO, social, accessibility and AI-agent readiness. One command. Zero dependencies.">
+<meta property="og:url" content="https://fastpresspages.github.io/launchgrade/">
+<meta property="og:image" content="https://fastpresspages.github.io/launchgrade/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LaunchGrade — a dark report card with a lime grade ring and the line: grade your launch before the internet does.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LaunchGrade — Grade your launch before the internet does">
+<meta name="twitter:description" content="53 checks. 7 categories. One command. Free and open source.">
+<meta name="twitter:image" content="https://fastpresspages.github.io/launchgrade/assets/og.png">
+<meta name="twitter:image:alt" content="LaunchGrade — grade your launch before the internet does.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://fastpresspages.github.io/launchgrade/#org",
+      "name": "FastPress Labs",
+      "url": "https://github.com/fastpresspages",
+      "sameAs": ["https://github.com/fastpresspages"],
+      "email": "meetcode99@gmail.com"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "LaunchGrade",
+      "url": "https://fastpresspages.github.io/launchgrade/",
+      "description": "A free, zero-dependency CLI that grades a public launch page across 53 checks in 7 categories.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "codeRepository": "https://github.com/fastpresspages/launchgrade",
+      "author": { "@id": "https://fastpresspages.github.io/launchgrade/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is LaunchGrade really free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The CLI, GitHub Action, MCP server, reports and agent skill are open source under Apache-2.0. The human audit request form is also free. There is no paid tier and no account." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does LaunchGrade replace Lighthouse?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Lighthouse measures browser performance and best practices. LaunchGrade checks the launch surface: offer clarity, capture, trust, share cards, search basics, accessibility signals and AI-agent readiness. Use both." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you store the URLs I scan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The CLI runs locally and sends nothing to us. If you submit the free audit form, the URL and message are delivered to the FastPress Labs inbox through FormSubmit so a human can reply." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use LaunchGrade in CI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the composite GitHub Action or run the CLI with --fail-under. The job exits with code 2 when the score is below your threshold." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on private pages?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. LaunchGrade fetches public URLs without your cookies or session. For a private page, export the HTML and use the library API with buildContextFromHtml, or ask for a human audit." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is behind LaunchGrade?",
+          "acceptedAnswer": { "@type": "Answer", "text": "FastPress Labs, a small open-source community for people who ship. YouLauncher is its first trial project. LaunchGrade is the first shared tool." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="noise" aria-hidden="true"></div>
+
+<header class="site-head">
+  <nav class="nav wrap" aria-label="Main">
+    <a class="brand" href="#top" aria-label="LaunchGrade home">
+      <span class="brand-mark" aria-hidden="true">LG</span>
+      <span class="brand-word">Launch<span>Grade</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span class="sr-only">Menu</span>
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#checks">Checks</a>
+      <a href="#reports">Reports</a>
+      <a href="#agents">For agents</a>
+      <a href="#audit" class="nav-cta">Free audit <span aria-hidden="true">↗</span></a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero wrap" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Open source · Apache-2.0 · zero dependencies</p>
+      <h1>Grade your launch<br><em>before the internet does.</em></h1>
+      <p class="lede">LaunchGrade scans any public page in about a second. <strong>53 checks</strong> across conversion, trust, technical, SEO, social, accessibility and AI-agent readiness — then it hands you the fixes that matter, in priority order.</p>
+
+      <div class="install" data-copy-wrap>
+        <code id="install-command">npx -p github:fastpresspages/launchgrade launchgrade your.site</code>
+        <button class="copy" type="button" data-copy="#install-command" aria-label="Copy install command">Copy</button>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#audit">Get a free human audit <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="https://github.com/fastpresspages/launchgrade">View the source <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="micro">No account. No tracking. No paid API. Node 18.17+ and one command.</p>
+
+      <ul class="hero-points" aria-label="Highlights">
+        <li><b>53</b><span>checks</span></li>
+        <li><b>7</b><span>categories</span></li>
+        <li><b>0</b><span>runtime deps</span></li>
+        <li><b>&lt;1s</b><span>typical scan</span></li>
+      </ul>
+    </div>
+
+    <aside class="hero-card" aria-label="Real LaunchGrade report for YouLauncher">
+      <div class="card-top">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="card-file">launchgrade · report</span>
+        <span class="live">real scan</span>
+      </div>
+      <div class="card-site">
+        <span class="site-avatar" aria-hidden="true">YL</span>
+        <div>
+          <b>YouLauncher</b>
+          <span>fastpresspages.github.io/YouLauncher</span>
+        </div>
+        <span class="scan-time">398 ms</span>
+      </div>
+      <div class="grade-row">
+        <div class="grade-ring" style="--score:71" aria-hidden="true">
+          <div><b>B-</b><span>71/100</span></div>
+        </div>
+        <div class="grade-copy">
+          <b>Needs polish</b>
+          <p>27 pass · 15 warn · 3 fail<br>45 scored checks</p>
+          <a href="samples/youlauncher/report.html">Open the full report <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="mini-bars" aria-label="Category scores">
+        <div><span>Conversion</span><b>93</b><i style="--v:93"></i></div>
+        <div><span>Trust</span><b>38</b><i style="--v:38" class="low"></i></div>
+        <div><span>Technical</span><b>91</b><i style="--v:91"></i></div>
+        <div><span>SEO</span><b>79</b><i style="--v:79"></i></div>
+        <div><span>Social</span><b>20</b><i style="--v:20" class="low"></i></div>
+        <div><span>AI agents</span><b>50</b><i style="--v:50" class="mid"></i></div>
+      </div>
+      <div class="top-fix">
+        <span class="tag">fix first</span>
+        <p><b>Social card missing.</b> Add Open Graph tags so the link does not look broken when shared.</p>
+      </div>
+      <p class="card-note">A real audit, not a mockup · 23 Oct 2026</p>
+    </aside>
+  </section>
+
+  <section class="strip" aria-label="What LaunchGrade produces">
+    <div class="wrap strip-inner">
+      <span>terminal report</span><i aria-hidden="true">◆</i>
+      <span>standalone HTML</span><i aria-hidden="true">◆</i>
+      <span>markdown</span><i aria-hidden="true">◆</i>
+      <span>json</span><i aria-hidden="true">◆</i>
+      <span>svg badge</span><i aria-hidden="true">◆</i>
+      <span>fix plan</span><i aria-hidden="true">◆</i>
+      <span>MCP server</span>
+    </div>
+  </section>
+
+  <section class="section wrap" id="how">
+    <div class="section-head">
+      <p class="kicker">The 60-second pre-launch check</p>
+      <h2>You ship. It checks.<br><em>You fix the right thing.</em></h2>
+      <p>No dashboard to learn, no browser to install, no score without a next step. Point it at a URL and read.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <span class="step-num">01</span>
+        <h3>Scan the public page</h3>
+        <p>Fetches the HTML, headers and a small allowlist of well-known files: robots, sitemap, llms.txt, security.txt, AGENTS.md. No JavaScript execution, no cookies.</p>
+        <code>launchgrade your.site</code>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <h3>Get a weighted grade</h3>
+        <p>Every check returns pass, warn, fail or info. Categories are normalized and weighted, so conversion and technical issues outrank cosmetic ones.</p>
+        <code>B- · 71/100 · needs polish</code>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <h3>Fix the top three</h3>
+        <p>The fix plan sorts by impact, not by checklist order. Each item explains the failure in plain language and tells you what to change.</p>
+        <code>launchgrade your.site --out reports</code>
+      </li>
+    </ol>
+    <div class="inline-cta">
+      <p><b>Want a second pair of eyes?</b> The free audit is a human, not a bot, reading your page.</p>
+      <a class="text-link" href="#audit">Ask for a free audit <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="section checks-section" id="checks">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">What it actually looks at</p>
+        <h2>Seven categories.<br><em>Fifty-three honest checks.</em></h2>
+        <p>Each category carries a weight. Nothing checks for your favorite framework, and nothing rewards fake urgency or keyword stuffing.</p>
+      </div>
+      <div class="checks-grid">
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">↗</span><span class="weight">25%</span></div>
+          <h3>Conversion</h3>
+          <p>Can a stranger understand the offer and take one action?</p>
+          <ul>
+            <li>Email capture and a specific CTA</li>
+            <li>Social proof and risk reversal</li>
+            <li>Low friction, human contact</li>
+          </ul>
+        </article>
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">◈</span><span class="weight">15%</span></div>
+          <h3>Trust</h3>
+          <p>Would a careful buyer believe you and feel safe?</p>
+          <ul>
+            <li>Privacy, terms and about links</li>
+            <li>Real social presence</li>
+            <li>security.txt and current copyright</li>
+          </ul>
+        </article>
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">⌁</span><span class="weight">20%</span></div>
+          <h3>Technical</h3>
+          <p>Does the page load fast, securely and indexably?</p>
+          <ul>
+            <li>HTTPS, status, speed, compression</li>
+            <li>Viewport, canonical, language</li>
+            <li>Mixed content and analytics</li>
+          </ul>
+        </article>
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">◎</span><span class="weight">15%</span></div>
+          <h3>SEO</h3>
+          <p>Can search engines understand and rank the page?</p>
+          <ul>
+            <li>Title, description and headings</li>
+            <li>Sitemap, robots and schema</li>
+            <li>Image alt text and text ratio</li>
+          </ul>
+        </article>
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">▣</span><span class="weight">10%</span></div>
+          <h3>Social sharing</h3>
+          <p>Will a shared link look credible in the feed?</p>
+          <ul>
+            <li>Complete Open Graph card</li>
+            <li>Twitter/X summary card</li>
+            <li>Share image and alt text</li>
+          </ul>
+        </article>
+        <article class="check-card">
+          <div class="check-head"><span class="check-icon">☰</span><span class="weight">5%</span></div>
+          <h3>Accessibility</h3>
+          <p>Can everyone use the page, including keyboard and screen-reader users?</p>
+          <ul>
+            <li>Form labels and button names</li>
+            <li>Descriptive links and landmarks</li>
+            <li>Pinch zoom and skip link</li>
+          </ul>
+        </article>
+        <article class="check-card featured">
+          <div class="check-head"><span class="check-icon">✳</span><span class="weight">10%</span></div>
+          <h3>AI-agent readiness</h3>
+          <p>Can ChatGPT, Claude, Perplexity and coding agents read and recommend you?</p>
+          <ul>
+            <li>llms.txt and explicit crawler access</li>
+            <li>AGENTS.md and Markdown negotiation</li>
+            <li>FAQ, semantic HTML, no-JS copy</li>
+          </ul>
+        </article>
+        <article class="check-card cta-card">
+          <h3>Bring your own check.</h3>
+          <p>A check is a few lines of readable JavaScript and a fixture. If it would have saved your launch, it belongs here.</p>
+          <a class="text-link" href="https://github.com/fastpresspages/launchgrade/blob/main/CONTRIBUTING.md">Read the contributor guide <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="reports">
+    <div class="section-head split">
+      <div>
+        <p class="kicker">One scan, five artifacts</p>
+        <h2>Reports you can<br><em>actually use.</em></h2>
+      </div>
+      <p>Terminal output for the moment you ship. A standalone HTML report for the team. JSON for your dashboard. Markdown for the issue. A badge for the README. And a fix plan that reads like a senior friend looked at the page.</p>
+    </div>
+
+    <div class="terminal" aria-label="Example terminal output">
+      <div class="terminal-top">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>launchgrade · sample</span>
+        <button class="copy small" type="button" data-copy-text="npx -p github:fastpresspages/launchgrade launchgrade your.site">Copy command</button>
+      </div>
+      <pre><code><span class="t-dim">$</span> npx -p github:fastpresspages/launchgrade launchgrade your.site
+
+<span class="t-lime">▲ LaunchGrade</span> <span class="t-dim">v0.1.0 · your.site</span>
+
+  <span class="t-dim">┌──────────────────────────────────────────────┐</span>
+  <span class="t-dim">│</span>  <span class="t-amber">B-  71/100</span>  Needs polish                     <span class="t-dim">│</span>
+  <span class="t-dim">└──────────────────────────────────────────────┘</span>
+
+  <span class="t-green">Conversion</span>        <span class="t-green">93</span>  ███████████████████░
+  <span class="t-red">Trust</span>             <span class="t-red">38</span>  ████████░░░░░░░░░░░░
+  <span class="t-green">Technical</span>         <span class="t-green">91</span>  ██████████████████░░
+  <span class="t-amber">SEO</span>               <span class="t-amber">79</span>  ████████████████░░░░
+  <span class="t-red">Social sharing</span>    <span class="t-red">20</span>  ████░░░░░░░░░░░░░░░░
+  <span class="t-green">Accessibility</span>    <span class="t-green">100</span>  ████████████████████
+  <span class="t-red">AI agents</span>         <span class="t-red">50</span>  ██████████░░░░░░░░░░
+
+  <span class="t-bold">Fix these first</span>
+   <span class="t-red">1. FAIL</span> Add Open Graph tags
+   <span class="t-red">2. FAIL</span> Link a privacy policy
+   <span class="t-red">3. FAIL</span> Publish llms.txt</code></pre>
+    </div>
+
+    <div class="artifact-grid">
+      <article><span class="file-pill">report.html</span><h3>Send it to the team</h3><p>A single dark file with the grade ring, every category and all 53 checks. No scripts, no external assets.</p></article>
+      <article><span class="file-pill">fix-plan.md</span><h3>Turn a score into work</h3><p>Ordered by impact, with the failure, the reason and the concrete change. Paste it into an issue.</p></article>
+      <article><span class="file-pill">badge.svg</span><h3>Show your grade</h3><p>A plain SVG badge for your README. Update it on every release with one action step.</p></article>
+    </div>
+  </section>
+
+  <section class="section agents-section" id="agents">
+    <div class="wrap agents-grid">
+      <div>
+        <p class="kicker">Built for humans and agents</p>
+        <h2>Your coding agent<br><em>can run the audit.</em></h2>
+        <p>LaunchGrade ships a zero-dependency MCP server and a portable skill. Ask Claude, Cursor or any MCP client to grade a page, explain the failures and write the fixes — using the same checklist a human would.</p>
+        <ul class="agent-list">
+          <li><b>grade_launch</b><span>Scan a URL and return Markdown or JSON.</span></li>
+          <li><b>get_fix_plan</b><span>Ranked fixes, ready to paste into a task.</span></li>
+          <li><b>list_checks</b><span>Every check, category and weight.</span></li>
+        </ul>
+        <div class="agent-links">
+          <a class="text-link" href="https://github.com/fastpresspages/launchgrade/blob/main/mcp/server.js">MCP server <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="https://github.com/fastpresspages/launchgrade/blob/main/skills/launchgrade/SKILL.md">Agent skill <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="code-card">
+        <div class="code-top"><span>claude_desktop_config.json</span><span class="t-dim">mcpServers</span></div>
+        <pre><code>{
+  <span class="t-lime">"mcpServers"</span>: {
+    <span class="t-lime">"launchgrade"</span>: {
+      <span class="t-lime">"command"</span>: <span class="t-green">"npx"</span>,
+      <span class="t-lime">"args"</span>: [
+        <span class="t-green">"-y"</span>, <span class="t-green">"-p"</span>,
+        <span class="t-green">"github:fastpresspages/launchgrade"</span>,
+        <span class="t-green">"launchgrade-mcp"</span>
+      ]
+    }
+  }
+}</code></pre>
+        <div class="code-foot">
+          <span>Then ask:</span>
+          <p>“Grade example.com. Fix the three highest-impact issues. Do not invent metrics.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section audit-section" id="audit">
+    <div class="wrap audit-grid">
+      <div class="audit-copy">
+        <p class="kicker">Free, human, no pitch</p>
+        <h2>Want a second<br><em>pair of eyes?</em></h2>
+        <p>Run the CLI first. If you want a human read, send the URL and what you are launching. You will get a short, prioritized reply — not a 40-page PDF, not a calendar link, not a drip sequence.</p>
+        <ul class="audit-list">
+          <li><span aria-hidden="true">01</span> The three fixes that would change the most</li>
+          <li><span aria-hidden="true">02</span> What is already working, so you do not break it</li>
+          <li><span aria-hidden="true">03</span> A straight answer on whether the page is ready</li>
+        </ul>
+        <div class="audit-note">
+          <b>Also open to:</b> collabs, sponsorships, tool partnerships and honest distribution deals. Say what you can offer and what you need. No paid links or fake reviews.
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-head">
+          <span class="form-badge">free</span>
+          <h3>Request an audit</h3>
+          <p>One human reply. No account, no payment.</p>
+        </div>
+        <form id="audit-form" action="https://formsubmit.co/meetcode99@gmail.com" data-ajax="https://formsubmit.co/ajax/meetcode99@gmail.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="LaunchGrade — new audit or collab request">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://fastpresspages.github.io/launchgrade/?sent=1#audit">
+          <input type="hidden" name="request_type" value="Audit, collab or feedback">
+          <input type="hidden" name="page" value="launchgrade-site">
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="field">
+            <label for="email">Your email <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@yourproject.com" required>
+          </div>
+          <div class="field">
+            <label for="message">What are you launching? <span aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" rows="5" placeholder="https://your.site — what it is, who it is for, and what is stuck. For collabs, say what you need." required></textarea>
+          </div>
+
+          <button class="btn primary submit" type="submit">
+            <span class="submit-label">Send request</span>
+            <span class="submit-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-privacy">By submitting, you agree to the <a href="privacy.html">privacy note</a>. Your message goes to the FastPress Labs inbox through FormSubmit. No list, no tracking pixels.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="community">
+    <div class="section-head center">
+      <p class="kicker">Built in public</p>
+      <h2>A small lab for<br><em>people who ship.</em></h2>
+      <p>FastPress Labs is the community behind LaunchGrade and YouLauncher. The plan is simple: make one useful thing at a time, document it honestly, and help the next person launch with fewer avoidable mistakes.</p>
+    </div>
+    <div class="stats-row" aria-label="Project facts">
+      <div><b>53</b><span>checks shipped</span></div>
+      <div><b>7</b><span>categories</span></div>
+      <div><b>0</b><span>runtime dependencies</span></div>
+      <div><b>1</b><span>real sample audit</span></div>
+    </div>
+    <div class="community-grid">
+      <article>
+        <h3>Use the tool</h3>
+        <p>Run it on your page. Ignore the checks you disagree with. Tell us which one was wrong.</p>
+        <a class="text-link" href="https://github.com/fastpresspages/launchgrade">GitHub <span aria-hidden="true">↗</span></a>
+      </article>
+      <article>
+        <h3>Bring a check</h3>
+        <p>Small, specific, testable. If it would have saved your launch, it is probably a good check.</p>
+        <a class="text-link" href="https://github.com/fastpresspages/launchgrade/issues/new/choose">Open an issue <span aria-hidden="true">↗</span></a>
+      </article>
+      <article>
+        <h3>Work together</h3>
+        <p>Collabs, sponsorships, distribution or a genuinely useful tool. Tell us what you can offer.</p>
+        <a class="text-link" href="mailto:meetcode99@gmail.com?subject=LaunchGrade%20collaboration">Email us <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section faq-section">
+    <div class="wrap faq-grid">
+      <div>
+        <p class="kicker">Straight answers</p>
+        <h2>Questions,<br><em>answered plainly.</em></h2>
+        <p>Still stuck? <a href="#audit">Send the form</a> or email <a href="mailto:meetcode99@gmail.com">meetcode99@gmail.com</a>.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Is LaunchGrade really free?</summary>
+          <p>Yes. The CLI, GitHub Action, MCP server, reports and agent skill are open source under Apache-2.0. The human audit request is free too. There is no paid tier, no account and no tracking.</p>
+        </details>
+        <details>
+          <summary>Does this replace Lighthouse?</summary>
+          <p>No. Lighthouse measures browser performance and best practices. LaunchGrade checks the launch surface: offer clarity, capture, trust, share cards, search basics, accessibility signals and AI-agent readiness. They complement each other.</p>
+        </details>
+        <details>
+          <summary>Do you store the URLs I scan?</summary>
+          <p>The CLI runs locally and sends nothing to us. If you submit the audit form, the URL and message are delivered to the FastPress Labs inbox through FormSubmit so a human can reply.</p>
+        </details>
+        <details>
+          <summary>Can I use it in CI?</summary>
+          <p>Yes. Use the composite GitHub Action or run the CLI with <code>--fail-under 80</code>. The job exits with code 2 below your threshold, so a launch page cannot silently regress.</p>
+        </details>
+        <details>
+          <summary>Does it work on private pages?</summary>
+          <p>No. LaunchGrade fetches public URLs without your cookies or session. For a private page, export the HTML and use the library API with <code>buildContextFromHtml</code>, or ask for a human audit.</p>
+        </details>
+        <details>
+          <summary>Why is it called LaunchGrade?</summary>
+          <p>Because “launch” is the moment everything you skipped becomes visible, and a grade is easier to act on than a 60-item checklist. The letter is a summary; the fix plan is the product.</p>
+        </details>
+        <details>
+          <summary>Who is behind it?</summary>
+          <p>FastPress Labs, a small open-source community for people who ship. YouLauncher is its first trial project. LaunchGrade is the first shared tool. No venture funding, no growth team, no fake logos.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta wrap">
+    <div class="final-card">
+      <p class="kicker">One command. No signup.</p>
+      <h2>Find out what your<br>launch is missing.</h2>
+      <div class="install" data-copy-wrap>
+        <code id="install-command-2">npx -p github:fastpresspages/launchgrade launchgrade your.site</code>
+        <button class="copy" type="button" data-copy="#install-command-2" aria-label="Copy install command">Copy</button>
+      </div>
+      <div class="hero-actions">
+        <a class="btn primary" href="https://github.com/fastpresspages/launchgrade">Star the repo <span aria-hidden="true">↗</span></a>
+        <a class="btn ghost" href="#audit">Ask for a human audit</a>
+      </div>
+      <p class="micro">If it catches one broken share card before launch, it paid for itself. It is free, so that is easy.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand" href="#top" aria-label="LaunchGrade home">
+        <span class="brand-mark" aria-hidden="true">LG</span>
+        <span class="brand-word">Launch<span>Grade</span></span>
+      </a>
+      <p>Open-source launch tools for people who ship.<br>A <a href="https://github.com/fastpresspages">FastPress Labs</a> project.</p>
+    </div>
+    <div class="foot-links">
+      <div>
+        <b>Product</b>
+        <a href="#how">How it works</a>
+        <a href="#checks">Checks</a>
+        <a href="#reports">Reports</a>
+        <a href="#agents">For agents</a>
+      </div>
+      <div>
+        <b>Project</b>
+        <a href="https://github.com/fastpresspages/launchgrade">GitHub</a>
+        <a href="#community">About</a>
+        <a href="https://github.com/fastpresspages/launchgrade/blob/main/CONTRIBUTING.md">Contributing</a>
+        <a href="https://github.com/fastpresspages/launchgrade/issues">Issues</a>
+      </div>
+      <div>
+        <b>Small print</b>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="https://github.com/fastpresspages/launchgrade/blob/main/LICENSE">Apache-2.0</a>
+        <a href="mailto:meetcode99@gmail.com">Email</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="year">2026</span> FastPress Labs. Built in public.</span>
+    <span class="foot-status"><i aria-hidden="true"></i> All systems free</span>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>

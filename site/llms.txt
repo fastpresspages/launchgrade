@@ -1,0 +1,39 @@
+# LaunchGrade
+
+> Grade your launch before the internet does. A free, zero-dependency CLI that audits any public page across 53 checks in 7 categories, then gives you the fixes that matter first.
+
+LaunchGrade is built by [FastPress Labs](https://github.com/fastpresspages), a small open-source community for people who ship. The CLI, GitHub Action, MCP server, reports and agent skill are Apache-2.0. There is no account, no tracking and no paid tier.
+
+## Quick start
+
+- [Run the audit](https://github.com/fastpresspages/launchgrade#quick-start): `npx -p github:fastpresspages/launchgrade launchgrade your.site`
+- [Read the README](https://github.com/fastpresspages/launchgrade/blob/main/README.md)
+- [See a real report](https://fastpresspages.github.io/launchgrade/samples/youlauncher/report.html)
+- [Request a free human audit](https://fastpresspages.github.io/launchgrade/#audit)
+
+## What it checks
+
+- **Conversion (25%)**: email capture, specific CTA, social proof, friction, human contact, value proposition, risk reversal.
+- **Trust (15%)**: privacy, terms, about, social presence, security.txt, current copyright.
+- **Technical (20%)**: HTTPS, status, speed, compression, caching, viewport, indexability, canonical, language, favicon, mixed content, analytics.
+- **SEO (15%)**: title, description, one H1, heading order, image alt text, sitemap, robots, schema, internal links, text ratio.
+- **Social sharing (10%)**: Open Graph, Twitter/X card, share image, image alt text.
+- **Accessibility (5%)**: form labels, button names, descriptive links, landmarks, pinch zoom, skip link.
+- **AI-agent readiness (10%)**: llms.txt, crawler access, AGENTS.md, Markdown negotiation, MCP/OpenAPI discovery, FAQ, semantic HTML, no-JS copy.
+
+## For agents
+
+- [MCP server](https://github.com/fastpresspages/launchgrade/blob/main/mcp/server.js): `grade_launch`, `get_fix_plan`, `list_checks`.
+- [Agent skill](https://github.com/fastpresspages/launchgrade/blob/main/skills/launchgrade/SKILL.md): install with `npx skills add fastpresspages/launchgrade`.
+- [AGENTS.md](https://github.com/fastpresspages/launchgrade/blob/main/AGENTS.md): repository instructions for coding agents.
+- [MCP manifest](https://fastpresspages.github.io/launchgrade/.well-known/mcp.json): local stdio transport and install command.
+
+## Principles
+
+Free means free. No fake metrics. Reports are files. Zero runtime dependencies. One useful tool beats ten empty landing pages.
+
+## Contact
+
+- Free audit and collaboration: https://fastpresspages.github.io/launchgrade/#audit
+- Email: meetcode99@gmail.com
+- Source: https://github.com/fastpresspages/launchgrade
