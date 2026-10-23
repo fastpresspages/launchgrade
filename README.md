@@ -256,7 +256,7 @@ LaunchGrade fetches public URLs. It does not execute page JavaScript, does not s
 
 ## License
 
-Apache-2.0 © [FastPress Labs](https://github.com/fastpresspages). See [`LICENSE`](LICENSE).
+Apache-2.0 © [FastPress Labs](https://github.com/fastpresspages). See [`LICENSE`](LICENSE) and [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 

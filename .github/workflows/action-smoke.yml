@@ -1,0 +1,41 @@
+name: Action smoke test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "action.yml"
+      - "bin/**"
+      - "src/**"
+      - ".github/workflows/action-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run the composite action against the live site
+        id: grade
+        uses: ./
+        with:
+          url: https://fastpresspages.github.io/launchgrade/
+          fail-under: 90
+          out: action-report
+
+      - name: Verify the report artifacts
+        run: |
+          test -f action-report/report.html
+          test -f action-report/report.json
+          test -f action-report/report.md
+          test -f action-report/badge.svg
+          test -f action-report/fix-plan.md
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: action-report
+          path: action-report
