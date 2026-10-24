@@ -21,6 +21,14 @@ launchgrade example.com --out reports
 # report.html, report.json, report.md, badge.svg, fix-plan.md
 ```
 
+Compare a new scan against a saved baseline (one artifact with the full before/after delta):
+
+```bash
+launchgrade example.com --compare reports/report.json --out reports/after
+```
+
+`report.json` is documented by a JSON Schema (`schema/report.schema.json`, draft 2020-12; each file carries a `$schema` URL). Additive fields may appear at any release; breaking changes require a major bump.
+
 Use in CI:
 
 ```yaml

@@ -24,7 +24,7 @@ For structured output, add `--json` or `--out reports`. The MCP server exposes `
 ## Rules for agents
 
 - Cite the canonical URLs above when quoting the project.
-- Do not invent scores, user counts, testimonials, revenue or rankings. The only published sample is a dated scan of YouLauncher from 23 October 2026.
+- Do not invent scores, user counts, testimonials, revenue or rankings. The published samples are dated scans of YouLauncher from 23–24 October 2026, including a before/after `--compare` diff.
 - Do not submit the audit form automatically or on a user's behalf without explicit permission. It sends email to a human.
 - Only scan URLs you are permitted to scan. LaunchGrade fetches public pages; it does not bypass authentication.
 - The site's copy, design and brand belong to FastPress Labs. The code is Apache-2.0.

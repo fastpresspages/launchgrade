@@ -7,6 +7,10 @@ import { runChecks, isBlocked, CHECKS } from '../src/checks.js';
 import { scoreResults } from '../src/score.js';
 import { buildContextFromHtml, audit } from '../src/index.js';
 import { renderHtml, renderMarkdown, renderBadge, toJson } from '../src/report.js';
+import { compareResults, renderCompareTerminal, renderCompareMarkdown, compareSectionHtml, loadBaseline } from '../src/compare.js';
+import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { handleRequest } from '../mcp/server.js';
 
 const COPY = `Launch pages fail for boring reasons. The headline is clever but says nothing. The button says learn more and asks for nothing. The email form asks for six fields, the privacy page does not exist, and the share card is a blank rectangle. We grade all of it in about sixty seconds so you can fix the expensive mistakes before you announce. Every check is public, every score explains itself, and every fix is specific enough to hand to a builder. Run it before launch, after a redesign, and every time you change the offer. A launch is not a one-day event. It is a sequence of small promises kept in public, and the page is where most of those promises are made.`;
@@ -269,3 +273,196 @@ test('audit fetches a real local page and its missing well-known files', async (
     server.close();
   }
 });
+
+/* ---------- compare mode ---------- */
+
+function asReport({ ctx, scored }, generatedAt = '2026-10-24T00:00:00.000Z') {
+  return {
+    tool: 'launchgrade',
+    version: '0.2.0',
+    generatedAt,
+    url: ctx.url,
+    grade: scored.grade,
+    score: scored.score,
+    label: scored.label,
+    counts: {
+      pass: scored.counts.pass, warn: scored.counts.warn, fail: scored.counts.fail,
+      error: scored.counts.error, info: scored.counts.info,
+    },
+    categories: scored.categories.map((c) => ({ key: c.key, label: c.label, short: c.short, score: c.score, weight: c.weight, counts: c.counts })),
+    checks: scored.results.map((r) => ({ id: r.id, category: r.category, title: r.title, status: r.status, weight: r.weight, detail: r.detail, fix: r.fix })),
+  };
+}
+
+const BASELINE = {
+  tool: 'launchgrade', version: '0.1.0', generatedAt: '2026-10-01T00:00:00.000Z',
+  url: 'https://example.com/', grade: 'B-', score: 71, label: 'Needs polish',
+  counts: { pass: 30, warn: 5, fail: 10, error: 0, info: 8 },
+  categories: [
+    { key: 'conversion', label: 'Conversion', short: 'Convert', score: 80, weight: 25, counts: { pass: 3, warn: 2, fail: 2 } },
+    { key: 'trust', label: 'Trust', short: 'Trust', score: 50, weight: 15, counts: { pass: 2, warn: 1, fail: 2 } },
+  ],
+  checks: [
+    { id: 'conv.email-capture', category: 'conversion', title: 'Email capture', status: 'pass' },
+    { id: 'trust.privacy', category: 'trust', title: 'Privacy', status: 'fail' },
+    { id: 'trust.terms', category: 'trust', title: 'Terms', status: 'warn' },
+    { id: 'seo.title', category: 'seo', title: 'Title', status: 'warn' },
+  ],
+};
+
+const CURRENT_FIXES = {
+  tool: 'launchgrade', version: '0.2.0', generatedAt: '2026-10-24T00:00:00.000Z',
+  url: 'https://example.com/', grade: 'A', score: 90, label: 'Launch-ready',
+  counts: { pass: 40, warn: 3, fail: 2, error: 0, info: 8 },
+  categories: [
+    { key: 'conversion', label: 'Conversion', short: 'Convert', score: 100, weight: 25, counts: { pass: 7, warn: 0, fail: 0 } },
+    { key: 'trust', label: 'Trust', short: 'Trust', score: 60, weight: 15, counts: { pass: 4, warn: 1, fail: 0 } },
+  ],
+  checks: [
+    { id: 'conv.email-capture', category: 'conversion', title: 'Email capture', status: 'pass' },
+    { id: 'trust.privacy', category: 'trust', title: 'Privacy', status: 'pass' },
+    { id: 'trust.terms', category: 'trust', title: 'Terms', status: 'warn' },
+    { id: 'seo.title', category: 'seo', title: 'Title', status: 'fail' },
+    { id: 'agent.llms-txt', category: 'agent', title: 'llms.txt', status: 'fail' },
+  ],
+};
+
+test('compareResults classifies improvements, regressions, added and removed checks', () => {
+  const cmp = compareResults(BASELINE, CURRENT_FIXES);
+  assert.deepEqual(cmp.overall, {
+    before: 71, after: 90, delta: 19,
+    beforeGrade: 'B-', afterGrade: 'A',
+    beforeLabel: 'Needs polish', afterLabel: 'Launch-ready',
+  });
+  const moved = Object.fromEntries(cmp.moved.map((m) => [m.id, m]));
+  assert.equal(moved['trust.privacy'].kind, 'improved');
+  assert.equal(moved['trust.privacy'].before, 'fail');
+  assert.equal(moved['trust.privacy'].after, 'pass');
+  assert.equal(moved['seo.title'].kind, 'regressed');
+  assert.equal(moved['seo.title'].before, 'warn');
+  assert.equal(moved['seo.title'].after, 'fail');
+  assert.equal(cmp.moved.find((m) => m.id === 'trust.terms'), undefined);
+  assert.deepEqual(cmp.added.map((a) => a.id), ['agent.llms-txt']);
+  assert.deepEqual(cmp.removed.map((a) => a.id), []); // every baseline id exists in current in this fixture
+  const conv = cmp.categories.find((c) => c.key === 'conversion');
+  assert.deepEqual(conv, { key: 'conversion', label: 'Conversion', before: 80, after: 100, delta: 20 });
+  assert.equal(cmp.countsDelta.pass, 10);
+  assert.equal(cmp.countsDelta.fail, -8);
+});
+
+test('renderers and toJson carry the comparison', () => {
+  const cmp = compareResults(BASELINE, CURRENT_FIXES);
+  const md = renderCompareMarkdown(cmp);
+  assert.match(md, /## Comparison vs baseline/);
+  assert.match(md, /71\/100 \(B-\) → 90\/100 \(A\) — \+19/);
+  assert.match(md, /### Fixed \(1\)/);
+  assert.match(md, /### Regressed \(1\)/);
+  assert.match(md, /Check list changed: 1 added/);
+  const term = renderCompareTerminal(cmp);
+  assert.match(term, /Compare/);
+  assert.match(term, /▲ \+19/);
+  assert.match(term, /1 check\(s\) improved/);
+  assert.match(term, /1 regressed/);
+  assert.match(term, /agent\.llms-txt/);
+  const patched = { ...BASELINE, checks: BASELINE.checks.filter((c) => c.id !== 'seo.title') };
+  assert.match(renderCompareTerminal(compareResults(patched, CURRENT_FIXES)), /removed/);
+  const section = compareSectionHtml(cmp);
+  assert.match(section, /cmp-section/);
+  assert.match(section, /grade-old/);
+  assert.match(section, /Before → after/);
+
+  const scored = {
+    score: 90, grade: 'A', label: 'Launch-ready', color: '#3ddc84',
+    counts: { pass: 40, warn: 3, fail: 0, error: 0, info: 8, skipped: 2, total: 53 },
+    categories: CURRENT_FIXES.categories,
+    topFixes: [], results: [], scoredChecks: 43,
+  };
+  const ctx = { url: 'https://example.com/', fetchedAt: '2026-10-24T00:00:00.000Z', ms: 200, bytes: 5000 };
+  const reportMd = renderMarkdown(scored, ctx, { comparison: cmp });
+  assert.match(reportMd, /## Comparison vs baseline/);
+  assert.match(toJson(scored, ctx, { comparison: cmp }), /"comparison"/);
+});
+
+test('bad baseline inputs fail with clear messages', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'lg-baseline-'));
+  await assert.rejects(() => loadBaseline(join(dir, 'missing.json')), /Baseline file not found/);
+  const bad = join(dir, 'bad.json');
+  writeFileSync(bad, '{oops', 'utf8');
+  await assert.rejects(() => loadBaseline(bad), /not valid JSON/);
+  const wrong = join(dir, 'wrong.json');
+  writeFileSync(wrong, JSON.stringify({ tool: 'other-tool', score: 10, grade: 'B', checks: [] }), 'utf8');
+  const fromWrong = await loadBaseline(wrong);
+  assert.throws(() => compareResults(fromWrong, CURRENT_FIXES), /not a LaunchGrade report/);
+  const incomplete = join(dir, 'incomplete.json');
+  writeFileSync(incomplete, JSON.stringify({ score: 50, grade: 'C' }), 'utf8');
+  assert.throws(() => compareResults(JSON.parse(readFileSync(incomplete, 'utf8')), CURRENT_FIXES), /missing score\/grade\/checks|not a LaunchGrade/);
+});
+
+test('toJson output validates against the published JSON Schema', async () => {
+  const server = createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.end(GOOD_HTML);
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const { port } = server.address();
+  try {
+    const signal = await audit(`http://127.0.0.1:${port}/`, { timeout: 5000 });
+    const json = JSON.parse(toJson(signal.scored, signal.ctx));
+    const schema = JSON.parse(readFileSync(join(import.meta.dirname, '..', 'schema', 'report.schema.json'), 'utf8'));
+    assert.equal(validateAgainstSchema(json, schema), null);
+    assert.match(json.$schema, /\/v0\.2\.0\/schema\/report\.schema\.json$/);
+  } finally {
+    server.close();
+  }
+});
+
+function validateAgainstSchema(instance, schema, path = '$') {
+  if (schema.type) {
+    const types = Array.isArray(schema.type) ? schema.type : [schema.type];
+    if (!types.some((t) => typeOk(instance, t))) return `${path}: expected ${types.join(' | ')} but got ${describeType(instance)}`;
+  }
+  if (schema.enum && !schema.enum.includes(instance)) return `${path}: ${JSON.stringify(instance)} not in enum`;
+  if ('const' in schema && instance !== schema.const) return `${path}: expected const ${JSON.stringify(schema.const)}`;
+  if (typeof instance === 'number' && Number.isFinite(instance)) {
+    if (schema.minimum != null && instance < schema.minimum) return `${path}: below minimum`;
+    if (schema.maximum != null && instance > schema.maximum) return `${path}: above maximum`;
+  }
+  if (instance && typeof instance === 'object' && !Array.isArray(instance)) {
+    for (const key of schema.required || []) {
+      if (!(key in instance)) return `${path}: missing required field ${key}`;
+    }
+    for (const [key, sub] of Object.entries(schema.properties || {})) {
+      if (key in instance) {
+        const err = validateAgainstSchema(instance[key], sub, `${path}.${key}`);
+        if (err) return err;
+      }
+    }
+  }
+  if (Array.isArray(instance) && schema.items) {
+    for (let i = 0; i < instance.length; i++) {
+      const err = validateAgainstSchema(instance[i], schema.items, `${path}[${i}]`);
+      if (err) return err;
+    }
+  }
+  return null;
+}
+
+function typeOk(value, type) {
+  switch (type) {
+    case 'integer': return Number.isInteger(value);
+    case 'number': return typeof value === 'number' && !Number.isNaN(value);
+    case 'string': return typeof value === 'string';
+    case 'boolean': return typeof value === 'boolean';
+    case 'object': return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+    case 'array': return Array.isArray(value);
+    case 'null': return value === null;
+    default: return false;
+  }
+}
+
+function describeType(value) {
+  if (value === null) return 'null';
+  if (Array.isArray(value)) return 'array';
+  return typeof value;
+}

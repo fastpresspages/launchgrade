@@ -3,6 +3,7 @@ import { parseArgs } from 'node:util';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { audit } from '../src/index.js';
+import { compareResults, loadBaseline, renderCompareTerminal } from '../src/compare.js';
 import { renderTerminal, renderMarkdown, renderHtml, renderBadge, renderFixPlan, toJson } from '../src/report.js';
 import { VERSION } from '../src/context.js';
 
@@ -23,6 +24,7 @@ const HELP = `
         --json             Print JSON (same as --format json)
         --badge <file>     Write an SVG grade badge
         --fail-under <n>   Exit 2 if the score is below n (CI gate)
+        --compare <file>   Diff this scan against a saved report.json (before/after)
         --ignore <ids>     Comma-separated check ids to skip
         --timeout <ms>     Per-request timeout (default: 15000)
         --fast             Skip the well-known file probes (robots, llms.txt, …)
@@ -37,6 +39,7 @@ const HELP = `
     npx -p github:fastpresspages/launchgrade launchgrade example.com --out reports
     launchgrade example.com --fail-under 80 --quiet
     launchgrade example.com --json > report.json
+    launchgrade example.com --compare reports/old/report.json --out reports/new
 
   Checks: conversion, trust, technical, SEO, social, accessibility, AI-agent readiness.
   Docs: https://github.com/fastpresspages/launchgrade
@@ -59,6 +62,7 @@ try {
       json: { type: 'boolean' },
       badge: { type: 'string' },
       'fail-under': { type: 'string' },
+      compare: { type: 'string' },
       ignore: { type: 'string' },
       timeout: { type: 'string' },
       fast: { type: 'boolean' },
@@ -123,6 +127,14 @@ if (failUnder != null && (Number.isNaN(failUnder) || failUnder < 0 || failUnder 
 }
 
 const started = Date.now();
+let baseline = null;
+if (values.compare) {
+  try {
+    baseline = await loadBaseline(resolve(values.compare));
+  } catch (error) {
+    fail(error.message);
+  }
+}
 let ctx;
 let scored;
 try {
@@ -131,39 +143,59 @@ try {
   fail(error.message);
 }
 
-const terminal = renderTerminal(scored, ctx, { color: !values['no-color'], maxFixes: 8 });
+const comparison = baseline
+  ? compareResults(baseline, {
+      url: ctx.url,
+      grade: scored.grade,
+      score: scored.score,
+      label: scored.label,
+      generatedAt: new Date().toISOString(),
+      counts: {
+        pass: scored.counts.pass, warn: scored.counts.warn, fail: scored.counts.fail,
+        error: scored.counts.error, info: scored.counts.info,
+      },
+      categories: scored.categories.map((c) => ({ key: c.key, label: c.label, short: c.short, score: c.score, weight: c.weight, counts: c.counts })),
+      checks: scored.results.map((r) => ({ id: r.id, category: r.category, title: r.title, status: r.status, weight: r.weight, detail: r.detail, fix: r.fix })),
+    })
+  : null;
+
+const terminal = renderTerminal(scored, ctx, { color: !values['no-color'], maxFixes: 8 })
 
 if (values.out) {
   const outDir = resolve(values.out);
   await mkdir(outDir, { recursive: true });
   await Promise.all([
-    writeFile(join(outDir, 'report.html'), renderHtml(scored, ctx), 'utf8'),
-    writeFile(join(outDir, 'report.json'), toJson(scored, ctx), 'utf8'),
-    writeFile(join(outDir, 'report.md'), renderMarkdown(scored, ctx), 'utf8'),
+    writeFile(join(outDir, 'report.html'), renderHtml(scored, ctx, { comparison }), 'utf8'),
+    writeFile(join(outDir, 'report.json'), toJson(scored, ctx, { comparison }), 'utf8'),
+    writeFile(join(outDir, 'report.md'), renderMarkdown(scored, ctx, { comparison }), 'utf8'),
     writeFile(join(outDir, 'badge.svg'), renderBadge(scored), 'utf8'),
     writeFile(join(outDir, 'fix-plan.md'), renderFixPlan(scored, ctx), 'utf8'),
   ]);
   if (!values.quiet) {
     process.stdout.write(terminal);
+    if (comparison) process.stdout.write(renderCompareTerminal(comparison, { color: !values['no-color'] }));
     process.stdout.write(`\n  Wrote 5 files to ${outDir}\n`);
     process.stdout.write(`  Open: ${join(outDir, 'report.html')}\n\n`);
   }
 } else if (values.html) {
   await mkdir(dirname(resolve(values.html)), { recursive: true });
-  await writeFile(resolve(values.html), renderHtml(scored, ctx), 'utf8');
-  if (!values.quiet) process.stdout.write(terminal + `\n  Wrote ${resolve(values.html)}\n\n`);
+  await writeFile(resolve(values.html), renderHtml(scored, ctx, { comparison }), 'utf8');
+  if (!values.quiet) process.stdout.write(terminal + (comparison ? renderCompareTerminal(comparison, { color: !values['no-color'] }) : '') + `\n  Wrote ${resolve(values.html)}\n\n`);
 } else if (values.md) {
   await mkdir(dirname(resolve(values.md)), { recursive: true });
-  await writeFile(resolve(values.md), renderMarkdown(scored, ctx), 'utf8');
-  if (!values.quiet) process.stdout.write(terminal + `\n  Wrote ${resolve(values.md)}\n\n`);
+  await writeFile(resolve(values.md), renderMarkdown(scored, ctx, { comparison }), 'utf8');
+  if (!values.quiet) process.stdout.write(terminal + '\n  Wrote ' + resolve(values.md) + '\n\n');
 } else if (values.badge) {
   await mkdir(dirname(resolve(values.badge)), { recursive: true });
   await writeFile(resolve(values.badge), renderBadge(scored), 'utf8');
-  if (!values.quiet) process.stdout.write(terminal + `\n  Wrote ${resolve(values.badge)}\n\n`);
+  if (!values.quiet) process.stdout.write(terminal + '\n  Wrote ' + resolve(values.badge) + '\n\n');
 } else if (!values.quiet) {
-  if (format === 'json') process.stdout.write(toJson(scored, ctx) + '\n');
-  else if (format === 'markdown' || format === 'md') process.stdout.write(renderMarkdown(scored, ctx) + '\n');
-  else process.stdout.write(terminal + '\n');
+  if (format === 'json') process.stdout.write(toJson(scored, ctx, { comparison }) + '\n');
+  else if (format === 'markdown' || format === 'md') process.stdout.write(renderMarkdown(scored, ctx, { comparison }) + '\n');
+  else {
+    process.stdout.write(terminal + '\n');
+    if (comparison) process.stdout.write(renderCompareTerminal(comparison, { color: !values['no-color'] }));
+  }
 }
 
 if (failUnder != null && scored.score < failUnder) {

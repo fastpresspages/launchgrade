@@ -9,6 +9,7 @@ LaunchGrade is built by [FastPress Labs](https://github.com/fastpresspages), a s
 - [Run the audit](https://github.com/fastpresspages/launchgrade#quick-start): `npx -p github:fastpresspages/launchgrade launchgrade your.site`
 - [Read the README](https://github.com/fastpresspages/launchgrade/blob/main/README.md)
 - [See a real report](https://fastpresspages.github.io/launchgrade/samples/youlauncher/report.html)
+- [See a real before/after diff](https://fastpresspages.github.io/launchgrade/samples/youlauncher-recovery/report.html) via `--compare`
 - [Request a free human audit](https://fastpresspages.github.io/launchgrade/#audit)
 
 ## What it checks

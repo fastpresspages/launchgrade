@@ -3,7 +3,7 @@
  * Every extra request is best-effort: a missing file is data, not an error.
  */
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 export const USER_AGENT = `LaunchGrade/${VERSION} (+https://github.com/fastpresspages/launchgrade)`;
 
 const EXTRA_PATHS = {

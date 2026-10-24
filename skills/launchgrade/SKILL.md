@@ -43,7 +43,7 @@ Do **not** use it to scan private dashboards, authenticated pages, or sites the 
    npx -p github:fastpresspages/launchgrade launchgrade https://example.com --out .launchgrade
    ```
 
-   This writes `.launchgrade/report.json`, `report.md`, `report.html`, `badge.svg`, and `fix-plan.md`. Read `.launchgrade/report.json`.
+   This writes `.launchgrade/report.json`, `report.md`, `report.html`, `badge.svg`, and `fix-plan.md`. Read `.launchgrade/report.json`. Its shape is documented in `schema/report.schema.json` (additive changes only; breaking changes require a major bump), and `--compare <older-report.json>` produces a before/after delta in a single artifact when the user wants to see progress.
 3. **Report the grade honestly.** Lead with the score, grade, and label. Then the category table. Then the top 3 fixes — not all 53 checks.
 4. **Offer the next step.** Ask whether to implement the top fixes. If yes, make the changes, rerun, and show the real delta. Never invent a higher score.
 
@@ -169,6 +169,7 @@ Tools: `grade_launch` (`url`, `format`: `markdown` | `json`, optional `max_fixes
 | `--out <dir>` | Write all five report artifacts |
 | `--md`, `--json`, `--html`, `--badge` | Print one artifact to stdout |
 | `--fail-under <n>` | CI gate; exit 2 below threshold |
+| `--compare <file>` | Diff against a saved `report.json` to report before/after with per-category and per-check deltas |
 | `--ignore <ids>` | Comma-separated legitimate exceptions |
 | `--fast` | Skip extras (`robots.txt`, sitemap, `llms.txt`, etc.) |
 | `--timeout <ms>` | Per-request timeout; default 15000 |

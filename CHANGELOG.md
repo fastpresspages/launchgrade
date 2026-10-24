@@ -2,6 +2,19 @@
 
 All notable changes to LaunchGrade are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] — 2026-10-24
+
+### Added
+
+- `--compare <report.json>`: run a new scan against a saved baseline and get the full before/after delta in one artifact — overall score/grade delta, per-category deltas, every check that moved (fail→pass, pass→warn and regressions the other way) and checks added/removed by tool changes. Terminal prints a compact delta table; the same data is embedded in the HTML and Markdown reports and under a `comparison` key in `report.json`.
+- Real difference run: the YouLauncher rebuild scores **B- 71 → A+ 100 (+29, 20 checks improved)** — see `samples/youlauncher-recovery/report.html`.
+- `schema/report.schema.json` (JSON Schema draft 2020-12, mirrored at tags) documents the `report.json` shape, including the new `comparison` object. `report.json` now carries a `$schema` URL so editors can validate it directly.
+- Compatibility policy: additive fields may ship at any release; breaking changes to existing fields require a major bump.
+- `src/compare.js` exposes the diff as a pure function `compareResults(baseline, current)` so agents and scripts can diff reports without a scan.
+- 4 new tests: compare classification, renderer/JSON embedding, bad-baseline messages, and a real report validated against the published schema.
+
+[0.2.0]: https://github.com/fastpresspages/launchgrade/releases/tag/v0.2.0
+
 ## [0.1.0] — 2026-10-23
 
 First public release.

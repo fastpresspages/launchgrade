@@ -82,10 +82,11 @@ node bin/launchgrade.js https://your.site
 ```bash
 launchgrade your.site --out reports        # report.html, report.json, report.md, badge.svg, fix-plan.md
 launchgrade your.site --md                  # Markdown to stdout
-launchgrade your.site --json                # machine-readable JSON
+launchgrade your.site --json                # machine-readable JSON (validated by our JSON Schema)
 launchgrade your.site --fail-under 80       # exit 2 in CI if the score drops
 launchgrade your.site --ignore seo.text-ratio,social.og-image-alt
 launchgrade your.site --fast                # skip robots.txt, sitemap, llms.txt and other extras
+launchgrade your.site --compare old/report.json  # one-scan before/after delta
 launchgrade --list                          # every check with weights
 ```
 
@@ -93,10 +94,10 @@ A normal run takes well under a second on a small page. The timeout is 15 second
 
 ## Example
 
-This is a real pair of scans of [YouLauncher](https://fastpresspages.github.io/YouLauncher/). The [before report](samples/youlauncher-before/report.html) graded **B- 71/100**. After the rebuild, the [current report](samples/youlauncher/report.html) grades **A+ 100/100**. Same tool, same public URL, both dated 23 Oct 2026.
+This is a real pair of scans of [YouLauncher](https://fastpresspages.github.io/YouLauncher/). The [before report](samples/youlauncher-before/report.html) graded **B- 71/100**. After the rebuild, the [current report](samples/youlauncher/report.html) grades **A+ 100/100**. Same tool, same public URL, both dated 23 Oct 2026. A one-command `--compare` run against the before report [shows the full delta in a single artifact](samples/youlauncher-recovery/report.html): score **▲ +29** and **20 checks improved**, including Open Graph, privacy and llms.txt.
 
 ```text
-  ▲ LaunchGrade  v0.1.0  ·  fastpresspages.github.io
+  ▲ LaunchGrade  v0.2.0  ·  fastpresspages.github.io
   https://fastpresspages.github.io/YouLauncher/
   Scanned 10/23/2026, 7:47:47 PM  ·  379 ms  ·  16 KB HTML
 
@@ -129,9 +130,23 @@ The HTML report is self-contained: share it, print it, or commit it. The badge i
 | --- | --- |
 | `report.html` | Standalone dark report with grade ring, category grid, every check and a share link |
 | `report.md` | Markdown summary plus a `<details>` table of all checks |
-| `report.json` | Stable JSON for dashboards and agents |
+| `report.json` | Stable JSON for dashboards and agents — shape published as [schema/report.schema.json](schema/report.schema.json) |
 | `badge.svg` | SVG badge with your score |
 | `fix-plan.md` | Ordered, impact-weighted fix plan |
+
+### report.json schema
+
+`report.json` is covered by [schema/report.schema.json](schema/report.schema.json) (JSON Schema draft 2020-12). It documents the top-level metadata, `counts`, `categories[]`, `checks[]`, `topFixes[]` and the `comparison` object added by `--compare`. Compatibility policy: additive fields may appear at any release; breaking changes to existing fields require a major version bump. The test suite validates a real report against the schema.
+
+### `--compare <file>`
+
+Point `--compare` at the `report.json` from an earlier scan to get one artifact with the whole before/after story: overall score and grade delta, per-category deltas, every check that moved (fail→pass, pass→warn and regressions in the other direction), and checks that were added or removed because the tool changed. The terminal prints a compact delta table; the HTML and Markdown reports embed the same data; `report.json` carries a `comparison` key.
+
+```bash
+launchgrade https://your.site --compare reports/old/report.json --out reports/after
+```
+
+For agents and scripts: the delta is also a pure function — `compareResults(baselineReport, currentReport)` in `src/compare.js` — so you can diff reports without launching a browser.
 
 ## GitHub Action
 
@@ -239,8 +254,9 @@ Requests go to the FastPress Labs inbox through FormSubmit. We do not sell or sh
 - [x] GitHub Action and MCP server
 - [x] Agent skill
 - [x] Real sample audit and public site
+- [x] `--compare` before/after delta and a published JSON Schema for `report.json`
 - [ ] npm release (`launchgrade` is reserved for this project; publishing needs the maintainer's npm login)
-- [ ] Multi-page crawls and comparison mode
+- [ ] Multi-page crawls beyond a single launch page
 - [ ] Framework presets (Next.js, Astro, plain HTML)
 - [ ] Community-contributed checks with fixtures
 
