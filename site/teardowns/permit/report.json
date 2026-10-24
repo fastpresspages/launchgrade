@@ -1,0 +1,664 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fastpresspages/launchgrade/v0.3.0/schema/report.schema.json",
+  "tool": "launchgrade",
+  "version": "0.3.0",
+  "generatedAt": "2026-10-24T13:44:53.372Z",
+  "url": "https://permit.petercai.com/",
+  "requestedUrl": "https://permit.petercai.com/",
+  "httpStatus": 200,
+  "responseMs": 555,
+  "htmlBytes": 14090,
+  "grade": "B-",
+  "score": 73,
+  "label": "Needs polish",
+  "counts": {
+    "pass": 31,
+    "warn": 12,
+    "fail": 3,
+    "info": 8,
+    "error": 0,
+    "skipped": 0,
+    "total": 54
+  },
+  "categories": [
+    {
+      "key": "conversion",
+      "label": "Conversion",
+      "short": "Convert",
+      "score": 63,
+      "weight": 25,
+      "counts": {
+        "pass": 3,
+        "warn": 3,
+        "fail": 1
+      }
+    },
+    {
+      "key": "trust",
+      "label": "Trust",
+      "short": "Trust",
+      "score": 38,
+      "weight": 15,
+      "counts": {
+        "pass": 1,
+        "warn": 3,
+        "fail": 1
+      }
+    },
+    {
+      "key": "technical",
+      "label": "Technical",
+      "short": "Tech",
+      "score": 94,
+      "weight": 20,
+      "counts": {
+        "pass": 11,
+        "warn": 2,
+        "fail": 0
+      }
+    },
+    {
+      "key": "seo",
+      "label": "SEO",
+      "short": "SEO",
+      "score": 79,
+      "weight": 15,
+      "counts": {
+        "pass": 7,
+        "warn": 3,
+        "fail": 0
+      }
+    },
+    {
+      "key": "social",
+      "label": "Social sharing",
+      "short": "Social",
+      "score": 100,
+      "weight": 10,
+      "counts": {
+        "pass": 3,
+        "warn": 0,
+        "fail": 0
+      }
+    },
+    {
+      "key": "a11y",
+      "label": "Accessibility",
+      "short": "A11y",
+      "score": 100,
+      "weight": 5,
+      "counts": {
+        "pass": 3,
+        "warn": 0,
+        "fail": 0
+      }
+    },
+    {
+      "key": "agent",
+      "label": "AI-agent readiness",
+      "short": "Agents",
+      "score": 60,
+      "weight": 10,
+      "counts": {
+        "pass": 3,
+        "warn": 1,
+        "fail": 1
+      }
+    }
+  ],
+  "topFixes": [
+    {
+      "id": "trust.privacy",
+      "status": "fail",
+      "title": "Links a privacy policy",
+      "detail": "No privacy policy link found.",
+      "fix": "Publish a plain-language privacy page and link it in the footer and near every form.",
+      "impact": 5.63
+    },
+    {
+      "id": "conv.email-capture",
+      "status": "fail",
+      "title": "Has an email capture",
+      "detail": "No email capture found. A launch page without a capture is a poster, not a funnel.",
+      "fix": "Add one email field and one button above the fold. Keep it to one step.",
+      "impact": 5
+    },
+    {
+      "id": "agent.llms-txt",
+      "status": "fail",
+      "title": "Publishes llms.txt",
+      "detail": "No /llms.txt found.",
+      "fix": "Add /llms.txt so AI agents get a clean map of your product instead of guessing from HTML.",
+      "impact": 3
+    },
+    {
+      "id": "trust.terms",
+      "status": "warn",
+      "title": "Links terms of service",
+      "detail": "No terms link found.",
+      "fix": "Add a short terms page. It matters as soon as money changes hands.",
+      "impact": 1.88
+    },
+    {
+      "id": "conv.friction",
+      "status": "warn",
+      "title": "Keeps signup friction low",
+      "detail": "No form to evaluate.",
+      "fix": "Start with a single email field.",
+      "impact": 1.67
+    },
+    {
+      "id": "conv.contact",
+      "status": "warn",
+      "title": "Offers a human contact path",
+      "detail": "No email or contact link found.",
+      "fix": "Add a real email or a contact page. Buyers check for a human before they convert.",
+      "impact": 1.67
+    },
+    {
+      "id": "seo.title",
+      "status": "warn",
+      "title": "Has a well-sized title",
+      "detail": "Title is 66 characters; search results truncate around 60.",
+      "fix": "Keep the promise in the first 60 characters.",
+      "impact": 1.18
+    },
+    {
+      "id": "seo.description",
+      "status": "warn",
+      "title": "Has a meta description",
+      "detail": "Description is 181 characters.",
+      "fix": "Aim for 50–160 characters with the outcome and audience.",
+      "impact": 1.18
+    }
+  ],
+  "checks": [
+    {
+      "id": "conv.email-capture",
+      "category": "conversion",
+      "title": "Has an email capture",
+      "status": "fail",
+      "weight": 3,
+      "detail": "No email capture found. A launch page without a capture is a poster, not a funnel.",
+      "fix": "Add one email field and one button above the fold. Keep it to one step."
+    },
+    {
+      "id": "conv.cta",
+      "category": "conversion",
+      "title": "Has a specific call to action",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Found a direct CTA: “Small Town 2,000 residents A small town with room…”.",
+      "fix": ""
+    },
+    {
+      "id": "conv.social-proof",
+      "category": "conversion",
+      "title": "Shows social proof",
+      "status": "pass",
+      "weight": 2,
+      "detail": "Social proof language found (“review”).",
+      "fix": ""
+    },
+    {
+      "id": "conv.friction",
+      "category": "conversion",
+      "title": "Keeps signup friction low",
+      "status": "warn",
+      "weight": 2,
+      "detail": "No form to evaluate.",
+      "fix": "Start with a single email field."
+    },
+    {
+      "id": "conv.contact",
+      "category": "conversion",
+      "title": "Offers a human contact path",
+      "status": "warn",
+      "weight": 2,
+      "detail": "No email or contact link found.",
+      "fix": "Add a real email or a contact page. Buyers check for a human before they convert."
+    },
+    {
+      "id": "conv.value-prop",
+      "category": "conversion",
+      "title": "States a clear value proposition",
+      "status": "pass",
+      "weight": 2,
+      "detail": "H1 is 6 words and a meta description explains the offer.",
+      "fix": ""
+    },
+    {
+      "id": "conv.risk-reversal",
+      "category": "conversion",
+      "title": "Reverses the risk of clicking",
+      "status": "warn",
+      "weight": 1,
+      "detail": "No “no spam”, “free”, or “cancel anytime” reassurance found.",
+      "fix": "Put one short reassurance under the button: “Free. No spam. Unsubscribe anytime.”"
+    },
+    {
+      "id": "trust.privacy",
+      "category": "trust",
+      "title": "Links a privacy policy",
+      "status": "fail",
+      "weight": 3,
+      "detail": "No privacy policy link found.",
+      "fix": "Publish a plain-language privacy page and link it in the footer and near every form."
+    },
+    {
+      "id": "trust.terms",
+      "category": "trust",
+      "title": "Links terms of service",
+      "status": "warn",
+      "weight": 2,
+      "detail": "No terms link found.",
+      "fix": "Add a short terms page. It matters as soon as money changes hands."
+    },
+    {
+      "id": "trust.about",
+      "category": "trust",
+      "title": "Explains who is behind the page",
+      "status": "warn",
+      "weight": 1,
+      "detail": "No about or team link found.",
+      "fix": "Add a short “who we are” section. Anonymous launch pages convert worse."
+    },
+    {
+      "id": "trust.social-presence",
+      "category": "trust",
+      "title": "Links a real social profile",
+      "status": "warn",
+      "weight": 1,
+      "detail": "No social profile links found.",
+      "fix": "Link one active profile. An abandoned profile is worse than none."
+    },
+    {
+      "id": "trust.security-txt",
+      "category": "trust",
+      "title": "Publishes a security contact",
+      "status": "info",
+      "weight": 1,
+      "detail": "No /.well-known/security.txt (optional for launch pages).",
+      "fix": "Add one when you start handling accounts or payments."
+    },
+    {
+      "id": "trust.copyright",
+      "category": "trust",
+      "title": "Shows a current footer",
+      "status": "pass",
+      "weight": 1,
+      "detail": "Footer copyright is current (2026).",
+      "fix": ""
+    },
+    {
+      "id": "tech.https",
+      "category": "technical",
+      "title": "Serves over HTTPS",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Final URL is HTTPS.",
+      "fix": ""
+    },
+    {
+      "id": "tech.status",
+      "category": "technical",
+      "title": "Returns a healthy status",
+      "status": "pass",
+      "weight": 3,
+      "detail": "Page returned HTTP 200.",
+      "fix": ""
+    },
+    {
+      "id": "tech.speed",
+      "category": "technical",
+      "title": "Loads the HTML quickly",
+      "status": "pass",
+      "weight": 2,
+      "detail": "HTML arrived in 555 ms.",
+      "fix": ""
+    },
+    {
+      "id": "tech.compression",
+      "category": "technical",
+      "title": "Compresses the response",
+      "status": "pass",
+      "weight": 2,
+      "detail": "Content-Encoding: zstd.",
+      "fix": ""
+    },
+    {
+      "id": "tech.cache",
+      "category": "technical",
+      "title": "Sets cache headers",
+      "status": "warn",
+      "weight": 1,
+      "detail": "No cache headers seen.",
+      "fix": "Add Cache-Control with a short max-age for HTML and immutable assets."
+    },
+    {
+      "id": "tech.viewport",
+      "category": "technical",
+      "title": "Is mobile-ready",
+      "status": "pass",
+      "weight": 2,
+      "detail": "Responsive viewport is configured.",
+      "fix": ""
+    },
+    {
+      "id": "tech.indexable",
+      "category": "technical",
+      "title": "Allows search indexing",
+      "status": "pass",
+      "weight": 2,
+      "detail": "No noindex directive found.",
+      "fix": ""
+    },
+    {
+      "id": "tech.canonical",
+      "category": "technical",
+      "title": "Declares a canonical URL",
+      "status": "pass",
+      "weight": 2,
+      "detail": "Canonical: https://permit.petercai.com/.",
+      "fix": ""
+    },
+    {
+      "id": "tech.lang",
+      "category": "technical",
+      "title": "Declares the page language",
+      "status": "pass",
+      "weight": 1,
+      "detail": "html lang=\"en\".",
+      "fix": ""
+    },
+    {
+      "id": "tech.favicon",
+      "category": "technical",
+      "title": "Has a favicon",
+      "status": "pass",
+      "weight": 1,
+      "detail": "Favicon linked (/art/icons/permit.svg).",
+      "fix": ""
+    },
+    {
+      "id": "tech.mixed-content",
+      "category": "technical",
+      "title": "Avoids mixed content",
+      "status": "pass",
+      "weight": 2,
+      "detail": "No insecure http:// assets found.",
+      "fix": ""
+    },
+    {
+      "id": "tech.analytics",
+      "category": "technical",
+      "title": "Measures visits",
+      "status": "pass",
+      "weight": 1,
+      "detail": "An analytics script was detected.",
+      "fix": ""
+    },
+    {
+      "id": "tech.image-dimensions",
+      "category": "technical",
+      "title": "Defines image dimensions",
+      "status": "warn",
+      "weight": 2,
+      "detail": "8/14 images are missing valid width and height attributes.",
+      "fix": "Add explicit width and height attributes to images to help prevent layout shifts."
+    },
+    {
+      "id": "seo.title",
+      "category": "seo",
+      "title": "Has a well-sized title",
+      "status": "warn",
+      "weight": 3,
+      "detail": "Title is 66 characters; search results truncate around 60.",
+      "fix": "Keep the promise in the first 60 characters."
+    },
+    {
+      "id": "seo.description",
+      "category": "seo",
+      "title": "Has a meta description",
+      "status": "warn",
+      "weight": 3,
+      "detail": "Description is 181 characters.",
+      "fix": "Aim for 50–160 characters with the outcome and audience."
+    },
+    {
+      "id": "seo.h1",
+      "category": "seo",
+      "title": "Has exactly one H1",
+      "status": "pass",
+      "weight": 3,
+      "detail": "One H1: “Build the city of your dreams.”.",
+      "fix": ""
+    },
+    {
+      "id": "seo.heading-order",
+      "category": "seo",
+      "title": "Uses a sane heading outline",
+      "status": "pass",
+      "weight": 1,
+      "detail": "18 headings, 6 H2 sections.",
+      "fix": ""
+    },
+    {
+      "id": "seo.alt",
+      "category": "seo",
+      "title": "Describes its images",
+      "status": "warn",
+      "weight": 2,
+      "detail": "10/14 images have alt text.",
+      "fix": "Describe meaningful images; use alt=\"\" for decoration."
+    },
+    {
+      "id": "seo.sitemap",
+      "category": "seo",
+      "title": "Publishes a sitemap",
+      "status": "pass",
+      "weight": 2,
+      "detail": "sitemap.xml is valid XML.",
+      "fix": ""
+    },
+    {
+      "id": "seo.robots",
+      "category": "seo",
+      "title": "Publishes robots.txt",
+      "status": "pass",
+      "weight": 1,
+      "detail": "robots.txt is published.",
+      "fix": ""
+    },
+    {
+      "id": "seo.schema",
+      "category": "seo",
+      "title": "Adds structured data",
+      "status": "pass",
+      "weight": 2,
+      "detail": "JSON-LD found: VideoGame.",
+      "fix": ""
+    },
+    {
+      "id": "seo.internal-links",
+      "category": "seo",
+      "title": "Links its own pages",
+      "status": "pass",
+      "weight": 1,
+      "detail": "10 internal links found.",
+      "fix": ""
+    },
+    {
+      "id": "seo.text-ratio",
+      "category": "seo",
+      "title": "Has readable copy in the HTML",
+      "status": "pass",
+      "weight": 1,
+      "detail": "28.6% of the HTML is readable text.",
+      "fix": ""
+    },
+    {
+      "id": "social.open-graph",
+      "category": "social",
+      "title": "Has a complete Open Graph card",
+      "status": "pass",
+      "weight": 3,
+      "detail": "og:title, og:description, og:image and og:url are all set.",
+      "fix": ""
+    },
+    {
+      "id": "social.twitter",
+      "category": "social",
+      "title": "Has a Twitter/X card",
+      "status": "pass",
+      "weight": 2,
+      "detail": "twitter:card=summary_large_image with an image.",
+      "fix": ""
+    },
+    {
+      "id": "social.og-image-alt",
+      "category": "social",
+      "title": "Describes the share image",
+      "status": "pass",
+      "weight": 1,
+      "detail": "og:image:alt is set.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.form-labels",
+      "category": "a11y",
+      "title": "Labels its form fields",
+      "status": "info",
+      "weight": 2,
+      "detail": "No form fields to check.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.button-names",
+      "category": "a11y",
+      "title": "Gives buttons accessible names",
+      "status": "info",
+      "weight": 2,
+      "detail": "No buttons found.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.link-text",
+      "category": "a11y",
+      "title": "Writes descriptive link text",
+      "status": "pass",
+      "weight": 1,
+      "detail": "No vague link text found.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.landmarks",
+      "category": "a11y",
+      "title": "Uses landmark elements",
+      "status": "pass",
+      "weight": 1,
+      "detail": "main and nav landmarks are present.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.zoom",
+      "category": "a11y",
+      "title": "Allows pinch-zoom",
+      "status": "pass",
+      "weight": 1,
+      "detail": "Zoom is not blocked.",
+      "fix": ""
+    },
+    {
+      "id": "a11y.skip-link",
+      "category": "a11y",
+      "title": "Offers a skip link",
+      "status": "info",
+      "weight": 1,
+      "detail": "No skip link (nice-to-have for long pages).",
+      "fix": "Add “Skip to content” as the first focusable element."
+    },
+    {
+      "id": "agent.llms-txt",
+      "category": "agent",
+      "title": "Publishes llms.txt",
+      "status": "fail",
+      "weight": 3,
+      "detail": "No /llms.txt found.",
+      "fix": "Add /llms.txt so AI agents get a clean map of your product instead of guessing from HTML."
+    },
+    {
+      "id": "agent.llms-full",
+      "category": "agent",
+      "title": "Offers a full-context file",
+      "status": "info",
+      "weight": 1,
+      "detail": "No llms-full.txt (optional).",
+      "fix": "Add the long-form version if agents need your docs in one request."
+    },
+    {
+      "id": "agent.robots-ai",
+      "category": "agent",
+      "title": "Lets AI crawlers in",
+      "status": "pass",
+      "weight": 2,
+      "detail": "All 6 major AI/search crawlers are allowed.",
+      "fix": ""
+    },
+    {
+      "id": "agent.agents-md",
+      "category": "agent",
+      "title": "Speaks to coding agents",
+      "status": "info",
+      "weight": 1,
+      "detail": "No AGENTS.md (emerging convention).",
+      "fix": "Add AGENTS.md if developers or coding agents integrate with your product."
+    },
+    {
+      "id": "agent.markdown",
+      "category": "agent",
+      "title": "Serves markdown to agents",
+      "status": "info",
+      "weight": 1,
+      "detail": "No markdown alternate or content negotiation.",
+      "fix": "Optional: serve text/markdown when Accept asks for it, or link a .md alternate."
+    },
+    {
+      "id": "agent.mcp",
+      "category": "agent",
+      "title": "Exposes a machine-readable API",
+      "status": "info",
+      "weight": 1,
+      "detail": "No MCP/OpenAPI descriptor (only needed if agents can act on your product).",
+      "fix": "Publish a descriptor when you ship an API or MCP server."
+    },
+    {
+      "id": "agent.faq",
+      "category": "agent",
+      "title": "Answers buying questions",
+      "status": "warn",
+      "weight": 2,
+      "detail": "No FAQ section or FAQ schema found.",
+      "fix": "Add 3–5 real objections (“Is it free?”, “How long does it take?”) and FAQPage schema."
+    },
+    {
+      "id": "agent.semantic-html",
+      "category": "agent",
+      "title": "Uses semantic HTML",
+      "status": "pass",
+      "weight": 1,
+      "detail": "Semantic main/article/nav structure found.",
+      "fix": ""
+    },
+    {
+      "id": "agent.no-js-copy",
+      "category": "agent",
+      "title": "Works without JavaScript",
+      "status": "pass",
+      "weight": 2,
+      "detail": "4027 characters of copy are in the HTML.",
+      "fix": ""
+    }
+  ],
+  "comparison": null
+}

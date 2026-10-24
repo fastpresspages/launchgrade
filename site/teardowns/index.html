@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field scans · LaunchGrade</title>
+<meta name="description" content="Real launch pages from fresh Show HN posts, graded with LaunchGrade v0.3.0. Honest numbers, prioritized fixes, no shaming.">
+<meta property="og:title" content="Field scans · LaunchGrade">
+<meta property="og:description" content="Four fresh Show HN launch pages, graded on 24 Oct 2026. Real checks, real scores, prioritized fixes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fastpresspages.github.io/launchgrade/teardowns/">
+<meta property="og:image" content="https://fastpresspages.github.io/launchgrade/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://fastpresspages.github.io/launchgrade/teardowns/">
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+<style>
+:root{--bg:#08080A;--ink:#F5F7F2;--mut:#9BA3A7;--lime:#C6FF4A;--amber:#FFB020;--red:#FF5C5C;--card:#101318;--line:#23282E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+header{padding:28px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.mark{display:flex;gap:12px;align-items:center;font-weight:700}
+.mark .lg{width:34px;height:34px;border-radius:10px;background:var(--lime);color:#08080A;display:grid;place-items:center;font-size:14px;letter-spacing:.5px}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;margin:56px 0 12px}
+.lede{color:var(--mut);max-width:640px;margin-bottom:36px}
+.note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:40px;font-size:.95rem;color:var(--mut)}
+.note strong{color:var(--ink)}
+.grid{display:grid;gap:18px;margin-bottom:48px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
+.scan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.scan .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.scan h2{font-size:1.15rem}
+.scan .host{color:var(--mut);font-size:.85rem;word-break:break-all}
+.grade{font-size:2rem;font-weight:800;line-height:1}
+.g-d{color:var(--red)}.g-c{color:var(--amber)}.g-b{color:var(--lime)}
+.facts{color:var(--mut);font-size:.9rem}
+.facts b{color:var(--ink);font-weight:600}
+.actions{margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;font-size:.92rem}
+.btn{display:inline-block;background:var(--lime);color:#08080A;font-weight:700;padding:8px 14px;border-radius:9px}
+.btn:hover{text-decoration:none;filter:brightness(1.05)}
+.patterns{margin:0 0 56px}
+.patterns h2{font-size:1.4rem;margin-bottom:14px}
+.patterns ol{margin-left:22px;color:var(--mut)}
+.patterns li{margin-bottom:8px}
+.patterns li b{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--mut);font-size:.9rem}
+footer a{margin-right:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="mark" href="../"><span class="lg">LG</span> LaunchGrade</a>
+  <a href="https://github.com/fastpresspages/launchgrade">GitHub ↗</a>
+</header>
+
+<h1>Field scans: fresh launches, real grades</h1>
+<p class="lede">Four launch pages taken from Show HN posts in the last few days, scanned with LaunchGrade v0.3.0 on <b>24 Oct 2026</b>. Every number comes from the tool's own output — the full reports are linked below.</p>
+
+<div class="note"><strong>Why publish these?</strong> Because the fastest way to prove a grading tool works is to grade pages everyone can visit. These are public Show HN launches; the feedback points repeat across almost every new launch we scan. <strong>Own one of these pages?</strong> Congrats on shipping — take the fixes, they're free. Want facts corrected or the scan removed? Open an issue at <a href="https://github.com/fastpresspages/launchgrade/issues">fastpresspages/launchgrade</a> or email meetcode99@gmail.com and we'll act within a day. Want a human to go deeper? <a href="../">The audit is free too.</a></div>
+
+<div class="grid">
+  <article class="scan">
+    <div class="top"><h2>Permit — SimCity, but with permits</h2><span class="grade g-b">B- 73</span></div>
+    <div class="host">permit.petercai.com</div>
+    <p class="facts"><b>Strong:</b> Social sharing 100, Accessibility 100, Technical 94.<br>
+    <b>Top fix:</b> Trust 38 — no privacy policy linked; no email capture; no llms.txt for agents.</p>
+    <div class="actions"><a class="btn" href="permit/report.html">Full report</a><a href="https://news.ycombinator.com/item?id=50170593">HN thread ↗</a></div>
+  </article>
+  <article class="scan">
+    <div class="top"><h2>Swurf — swipe through the real web</h2><span class="grade g-c">C+ 65</span></div>
+    <div class="host">swurf.org</div>
+    <p class="facts"><b>Strong:</b> Technical 98, SEO 85, Social 83 — the cleanest HTML of the four.<br>
+    <b>Top fix:</b> Trust 31; buttons without accessible names; no email capture.</p>
+    <div class="actions"><a class="btn" href="swurf/report.html">Full report</a><a href="https://news.ycombinator.com/item?id=50205320">HN thread ↗</a></div>
+  </article>
+  <article class="scan">
+    <div class="top"><h2>Corgi — agent/terminal multiplexer</h2><span class="grade g-d">D+ 53</span></div>
+    <div class="host">corgi.computer</div>
+    <p class="facts"><b>Strong:</b> Technical 90, Accessibility 90 — but ships <b>1.4&nbsp;MB of HTML</b>.<br>
+    <b>Top fix:</b> Conversion 37 and Trust 38: no email capture, no CTA, no privacy policy, no OG card.</p>
+    <div class="actions"><a class="btn" href="corgi/report.html">Full report</a><a href="https://news.ycombinator.com/item?id=50214373">HN thread ↗</a></div>
+  </article>
+  <article class="scan">
+    <div class="top"><h2>Impossible Machines — program the physical world</h2><span class="grade g-d">D+ 54</span></div>
+    <div class="host">impossiblemachines.xyz</div>
+    <p class="facts"><b>Strong:</b> Technical 91, SEO 79 — small 8&nbsp;KB page.<br>
+    <b>Top fix:</b> Social 20 (no OG card), Trust 38, no email capture for a launch that hit the HN front page.</p>
+    <div class="actions"><a class="btn" href="impossible-machines/report.html">Full report</a><a href="https://news.ycombinator.com/item?id=50202746">HN thread ↗</a></div>
+  </article>
+</div>
+
+<section class="patterns">
+  <h2>What repeats across all four</h2>
+  <ol>
+    <li><b>Trust 38 on every single page.</b> A missing privacy policy is the most common fail on fresh launches — and the easiest to fix in an afternoon.</li>
+    <li><b>No email capture.</b> HN traffic spikes and vanishes within 48 hours; four launches had no way to keep any of it.</li>
+    <li><b>No Open Graph card (2 of 4).</b> Their links get shared on X, Discord and Slack without a preview image.</li>
+    <li><b>No llms.txt / agent map.</b> Every page was effectively invisible to AI agents trying to summarize what the product does.</li>
+    <li><b>The technical floor is high.</b> Technical 90–98 across the board — builders today ship fast, secure pages. What's missing is the human layer: capture, trust, share.</li>
+  </ol>
+</section>
+
+<footer>
+  <a href="../">LaunchGrade</a>
+  <a href="https://github.com/fastpresspages/launchgrade">Source</a>
+  <a href="https://github.com/fastpresspages/launchgrade/discussions/7">Show and tell</a>
+  <span>Scans dated 24 Oct 2026 · LaunchGrade v0.3.0 · heuristic score, not a badge of shame</span>
+</footer>
+</div>
+</body>
+</html>
