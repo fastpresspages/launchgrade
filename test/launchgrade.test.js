@@ -115,6 +115,74 @@ test('meta, forms and headings are extracted without a DOM', () => {
   assert.equal(cleanText('<p>Hello&nbsp;<b>world</b></p>'), 'Hello world');
 });
 
+test('image dimensions check passes when images have valid dimensions', () => {
+  const html = `
+    <html lang="en">
+      <head>
+        <title>Test launch page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      </head>
+      <body>
+        <img src="/logo.png" width="200" height="100" alt="Logo">
+        <img src="/hero.png" width="1200" height="600" alt="Hero">
+      </body>
+    </html>
+  `;
+
+  const ctx = buildContextFromHtml({
+    html,
+    url: 'https://example.com/',
+  });
+
+  const check = runChecks(ctx).find(
+    (item) => item.id === 'tech.image-dimensions'
+  );
+
+  assert.equal(check.status, 'pass');
+  assert.match(check.detail, /All 2 images/);
+});
+
+test('image dimensions check warns when dimensions are missing or invalid', () => {
+  const html = `
+    <html lang="en">
+      <head>
+        <title>Test launch page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      </head>
+      <body>
+        <img src="/logo.png" alt="Logo">
+        <img src="/hero.png" width="1200" alt="Hero">
+        <img src="/banner.png" width="0" height="100" alt="Banner">
+      </body>
+    </html>
+  `;
+
+  const ctx = buildContextFromHtml({
+    html,
+    url: 'https://example.com/',
+  });
+
+  const check = runChecks(ctx).find(
+    (item) => item.id === 'tech.image-dimensions'
+  );
+
+  assert.equal(check.status, 'warn');
+  assert.match(check.detail, /3\/3 images/);
+});
+
+test('image dimensions check reports info when no images exist', () => {
+  const ctx = buildContextFromHtml({
+    html: '<html><head><title>Test launch page</title></head><body><p>Hello</p></body></html>',
+    url: 'https://example.com/',
+  });
+
+  const check = runChecks(ctx).find(
+    (item) => item.id === 'tech.image-dimensions'
+  );
+
+  assert.equal(check.status, 'info');
+  assert.match(check.detail, /No images/);
+});
 test('a complete launch page earns an A', () => {
   const scored = scoreResults(runChecks(goodContext()));
   assert.ok(scored.score >= 90, `expected A, got ${scored.grade} (${scored.score})`);

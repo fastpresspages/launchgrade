@@ -324,13 +324,62 @@ export const CHECKS = [
       return result('fail', `${bad.length} insecure asset${bad.length > 1 ? 's' : ''} found.`, `Serve every asset over HTTPS (first: ${truncate(bad[0], 60)}).`);
     },
   },
+
   {
-    id: 'tech.analytics', category: 'technical', weight: 1,
+    id: 'tech.analytics',
+    category: 'technical',
+    weight: 1,
     title: 'Measures visits',
     run(p) {
       const found = /(googletagmanager|google-analytics|gtag\(|plausible\.io|umami|posthog|segment\.(com|io)|matomo|fathom|clarity\.ms|cloudflareinsights|vercel\/insights|simpleanalytics)/i.test(p.html);
-      if (found) return result('pass', 'An analytics script was detected.');
-      return result('warn', 'No analytics detected.', 'Add privacy-friendly analytics (Plausible, Umami, or a simple counter) before you announce.');
+
+      if (found) {
+        return result('pass', 'An analytics script was detected.');
+      }
+
+      return result(
+        'warn',
+        'No analytics detected.',
+        'Add privacy-friendly analytics (Plausible, Umami, or a simple counter) before you announce.'
+      );
+    },
+  },
+  {
+    id: 'tech.image-dimensions',
+    category: 'technical',
+    weight: 2,
+    title: 'Defines image dimensions',
+    run(p) {
+      const imgs = p.allImages.filter((img) => img.src);
+
+      if (!imgs.length) {
+        return result('info', 'No images to check.');
+      }
+
+      const missing = imgs.filter((img) => {
+        const width = Number(img.width);
+        const height = Number(img.height);
+
+        return !(
+          Number.isFinite(width) &&
+          width > 0 &&
+          Number.isFinite(height) &&
+          height > 0
+        );
+      });
+
+      if (!missing.length) {
+        return result(
+          'pass',
+          `All ${imgs.length} images define width and height.`
+        );
+      }
+
+      return result(
+        'warn',
+        `${missing.length}/${imgs.length} images are missing valid width and height attributes.`,
+        'Add explicit width and height attributes to images to help prevent layout shifts.'
+      );
     },
   },
 
