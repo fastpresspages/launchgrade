@@ -246,6 +246,13 @@ Requests go to the FastPress Labs inbox through FormSubmit. We do not sell or sh
 
 Have a check that would have saved your launch? [Open an issue](https://github.com/fastpresspages/launchgrade/issues/new/choose). Small, well-argued checks with a failing fixture are very welcome.
 
+## More from FastPress Labs
+
+- [FastPress Start](https://fastpresspages.github.io/fastpress-start/) — a free, zero-build launch page template. The live demo scores A+ 100/100.
+- [YouLauncher](https://fastpresspages.github.io/YouLauncher/) — the rebuilt growth-partner page used in the before/after above.
+- [Hire page](https://fastpresspages.github.io/hire-me/) — proof of work, not a padded resume.
+- [Outreach field guide](https://github.com/fastpresspages/outreach) — goals, launch plan and honest outreach templates.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version: fork, add a check plus a fixture, run `node --test`, open a PR. By participating you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
