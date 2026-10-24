@@ -11,6 +11,7 @@ import { compareResults, renderCompareTerminal, renderCompareMarkdown, compareSe
 import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { handleRequest } from '../mcp/server.js';
 
 const COPY = `Launch pages fail for boring reasons. The headline is clever but says nothing. The button says learn more and asks for nothing. The email form asks for six fields, the privacy page does not exist, and the share card is a blank rectangle. We grade all of it in about sixty seconds so you can fix the expensive mistakes before you announce. Every check is public, every score explains itself, and every fix is specific enough to hand to a builder. Run it before launch, after a redesign, and every time you change the offer. A launch is not a one-day event. It is a sequence of small promises kept in public, and the page is where most of those promises are made.`;
@@ -477,7 +478,7 @@ test('toJson output validates against the published JSON Schema', async () => {
   try {
     const signal = await audit(`http://127.0.0.1:${port}/`, { timeout: 5000 });
     const json = JSON.parse(toJson(signal.scored, signal.ctx));
-    const schema = JSON.parse(readFileSync(join(import.meta.dirname, '..', 'schema', 'report.schema.json'), 'utf8'));
+    const schema = JSON.parse(readFileSync(fileURLToPath(new URL('../schema/report.schema.json', import.meta.url)), 'utf8'));
     assert.equal(validateAgainstSchema(json, schema), null);
     assert.match(json.$schema, /\/v0\.3\.0\/schema\/report\.schema\.json$/);
   } finally {
