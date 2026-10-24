@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/fastpresspages/launchgrade/main/schema/report.schema.json",
+  "title": "LaunchGrade report.json",
+  "description": "The stable JSON contract emitted by `launchgrade --json` and `--out`.",
+  "type": "object",
+  "required": [
+    "tool",
+    "version",
+    "generatedAt",
+    "url",
+    "requestedUrl",
+    "httpStatus",
+    "responseMs",
+    "htmlBytes",
+    "grade",
+    "score",
+    "label",
+    "counts",
+    "categories",
+    "topFixes",
+    "checks"
+  ],
+  "properties": {
+    "tool": {
+      "const": "launchgrade"
+    },
+    "version": {
+      "description": "The LaunchGrade version that produced the report.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "url": {
+      "description": "The final URL after redirects.",
+      "type": "string",
+      "format": "uri"
+    },
+    "requestedUrl": {
+      "description": "The URL that was requested.",
+      "type": "string",
+      "format": "uri"
+    },
+    "httpStatus": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 599
+    },
+    "responseMs": {
+      "type": "number",
+      "minimum": 0
+    },
+    "htmlBytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "grade": {
+      "enum": ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"]
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "counts": {
+      "$ref": "#/$defs/counts"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "topFixes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/topFix"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "counts": {
+      "type": "object",
+      "required": ["pass", "warn", "fail", "info", "error", "skipped", "total"],
+      "properties": {
+        "pass": { "type": "integer", "minimum": 0 },
+        "warn": { "type": "integer", "minimum": 0 },
+        "fail": { "type": "integer", "minimum": 0 },
+        "info": { "type": "integer", "minimum": 0 },
+        "error": { "type": "integer", "minimum": 0 },
+        "skipped": { "type": "integer", "minimum": 0 },
+        "total": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "categoryCounts": {
+      "type": "object",
+      "required": ["pass", "warn", "fail"],
+      "properties": {
+        "pass": { "type": "integer", "minimum": 0 },
+        "warn": { "type": "integer", "minimum": 0 },
+        "fail": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "category": {
+      "type": "object",
+      "required": ["key", "label", "short", "score", "weight", "counts"],
+      "properties": {
+        "key": {
+          "enum": ["conversion", "trust", "technical", "seo", "social", "a11y", "agent"]
+        },
+        "label": { "type": "string", "minLength": 1 },
+        "short": { "type": "string", "minLength": 1 },
+        "score": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 },
+        "weight": { "type": "number", "minimum": 0, "maximum": 100 },
+        "counts": { "$ref": "#/$defs/categoryCounts" }
+      },
+      "additionalProperties": true
+    },
+    "topFix": {
+      "type": "object",
+      "required": ["id", "status", "title", "detail", "impact"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["warn", "fail", "error"] },
+        "title": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string" },
+        "fix": { "type": "string" },
+        "impact": { "type": "number", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "check": {
+      "type": "object",
+      "required": ["id", "category", "title", "status", "weight", "detail"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9.-]+$" },
+        "category": {
+          "enum": ["conversion", "trust", "technical", "seo", "social", "a11y", "agent"]
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["pass", "warn", "fail", "error", "info", "skipped"] },
+        "weight": { "type": "number", "minimum": 0, "maximum": 4 },
+        "detail": { "type": "string" },
+        "fix": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -133,6 +133,10 @@ The HTML report is self-contained: share it, print it, or commit it. The badge i
 | `badge.svg` | SVG badge with your score |
 | `fix-plan.md` | Ordered, impact-weighted fix plan |
 
+### JSON contract
+
+`report.json` follows [`schema/report.schema.json`](schema/report.schema.json) (JSON Schema draft 2020-12). The `version` field is the LaunchGrade version that produced the report, not a schema version. Adding optional fields is backwards compatible; removing, renaming or changing the type or meaning of a field is a breaking change, so it bumps the version and gets a CHANGELOG entry. Consumers should ignore unknown fields.
+
 ## GitHub Action
 
 ```yaml

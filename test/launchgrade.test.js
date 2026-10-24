@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
 import { attrs, meta, forms, headings, cleanText } from '../src/util.js';
@@ -8,6 +9,7 @@ import { scoreResults } from '../src/score.js';
 import { buildContextFromHtml, audit } from '../src/index.js';
 import { renderHtml, renderMarkdown, renderBadge, toJson } from '../src/report.js';
 import { handleRequest } from '../mcp/server.js';
+import { validate } from './schema-validator.js';
 
 const COPY = `Launch pages fail for boring reasons. The headline is clever but says nothing. The button says learn more and asks for nothing. The email form asks for six fields, the privacy page does not exist, and the share card is a blank rectangle. We grade all of it in about sixty seconds so you can fix the expensive mistakes before you announce. Every check is public, every score explains itself, and every fix is specific enough to hand to a builder. Run it before launch, after a redesign, and every time you change the offer. A launch is not a one-day event. It is a sequence of small promises kept in public, and the page is where most of those promises are made.`;
 
@@ -195,6 +197,16 @@ test('reports render grade, URL and an SVG badge', () => {
   const json = JSON.parse(toJson(scored, ctx));
   assert.equal(json.score, scored.score);
   assert.ok(Array.isArray(json.checks));
+});
+
+test('report.json matches the published schema', () => {
+  const schema = JSON.parse(readFileSync(new URL('../schema/report.schema.json', import.meta.url), 'utf8'));
+  const ctx = goodContext();
+  const generated = JSON.parse(toJson(scoreResults(runChecks(ctx)), ctx));
+  assert.deepEqual(validate(schema, generated), []);
+
+  const sample = JSON.parse(readFileSync(new URL('../samples/youlauncher/report.json', import.meta.url), 'utf8'));
+  assert.deepEqual(validate(schema, sample), []);
 });
 
 test('MCP server initializes, lists tools and grades via the tool contract', async () => {
