@@ -1,7 +1,7 @@
 {
   "name": "launchgrade",
   "description": "Free, zero-dependency launch audit CLI and MCP server from FastPress Labs.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "transport": "stdio",
   "install": "npx -y -p github:fastpresspages/launchgrade launchgrade-mcp",
   "repository": "https://github.com/fastpresspages/launchgrade",

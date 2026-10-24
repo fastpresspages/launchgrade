@@ -479,7 +479,7 @@ test('toJson output validates against the published JSON Schema', async () => {
     const json = JSON.parse(toJson(signal.scored, signal.ctx));
     const schema = JSON.parse(readFileSync(join(import.meta.dirname, '..', 'schema', 'report.schema.json'), 'utf8'));
     assert.equal(validateAgainstSchema(json, schema), null);
-    assert.match(json.$schema, /\/v0\.2\.0\/schema\/report\.schema\.json$/);
+    assert.match(json.$schema, /\/v0\.3\.0\/schema\/report\.schema\.json$/);
   } finally {
     server.close();
   }

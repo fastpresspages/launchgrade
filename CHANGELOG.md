@@ -2,6 +2,15 @@
 
 All notable changes to LaunchGrade are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] — 2026-10-24
+
+### Added
+
+- **First community-contributed check**: `tech.image-dimensions` (PR #12 by @klingesh) warns when `<img>` tags lack valid `width`/`height` attributes — layout-shift risk on phones. Warn-level, zero-dep, fully tested. The check list is now **54 checks**.
+- Tests updated to cover the new check; the schema test continues to validate real reports against `schema/report.schema.json` (the schema already allows the added check, because additive fields are permitted).
+
+[0.3.0]: https://github.com/fastpresspages/launchgrade/releases/tag/v0.3.0
+
 ## [0.2.0] — 2026-10-24
 
 ### Added

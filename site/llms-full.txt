@@ -1,6 +1,6 @@
 # LaunchGrade — full context for AI agents
 
-> LaunchGrade is a free, open-source, zero-dependency launch audit from FastPress Labs. It grades a public page across 53 checks in 7 weighted categories and returns prioritized fixes. No account, no telemetry, no paid API. Node.js 18.17+.
+> LaunchGrade is a free, open-source, zero-dependency launch audit from FastPress Labs. It grades a public page across 54 checks in 7 weighted categories and returns prioritized fixes. No account, no telemetry, no paid API. Node.js 18.17+.
 
 Canonical URL: https://fastpresspages.github.io/launchgrade/
 Source: https://github.com/fastpresspages/launchgrade

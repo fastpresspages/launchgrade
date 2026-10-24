@@ -9,7 +9,7 @@ metadata:
 
 # LaunchGrade
 
-LaunchGrade is a zero-dependency Node.js CLI that grades a public page against 53 checks in 7 weighted categories. It fetches the page and a few well-known files (`robots.txt`, `sitemap.xml`, `llms.txt`, `AGENTS.md`, `security.txt`, MCP/OpenAPI discovery), scores what it finds, and returns the fixes that matter most.
+LaunchGrade is a zero-dependency Node.js CLI that grades a public page against 54 checks in 7 weighted categories. It fetches the page and a few well-known files (`robots.txt`, `sitemap.xml`, `llms.txt`, `AGENTS.md`, `security.txt`, MCP/OpenAPI discovery), scores what it finds, and returns the fixes that matter most.
 
 Use it when someone is about to share a link and wants a second opinion that is specific, fast, and repeatable. It is a heuristic checklist, **not** Lighthouse, not a Google ranking tool, and not a substitute for real user research.
 
@@ -44,7 +44,7 @@ Do **not** use it to scan private dashboards, authenticated pages, or sites the 
    ```
 
    This writes `.launchgrade/report.json`, `report.md`, `report.html`, `badge.svg`, and `fix-plan.md`. Read `.launchgrade/report.json`. Its shape is documented in `schema/report.schema.json` (additive changes only; breaking changes require a major bump), and `--compare <older-report.json>` produces a before/after delta in a single artifact when the user wants to see progress.
-3. **Report the grade honestly.** Lead with the score, grade, and label. Then the category table. Then the top 3 fixes — not all 53 checks.
+3. **Report the grade honestly.** Lead with the score, grade, and label. Then the category table. Then the top 3 fixes — not all 54 checks.
 4. **Offer the next step.** Ask whether to implement the top fixes. If yes, make the changes, rerun, and show the real delta. Never invent a higher score.
 
 For a quick look without files:

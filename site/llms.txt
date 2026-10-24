@@ -1,6 +1,6 @@
 # LaunchGrade
 
-> Grade your launch before the internet does. A free, zero-dependency CLI that audits any public page across 53 checks in 7 categories, then gives you the fixes that matter first.
+> Grade your launch before the internet does. A free, zero-dependency CLI that audits any public page across 54 checks in 7 categories, then gives you the fixes that matter first.
 
 LaunchGrade is built by [FastPress Labs](https://github.com/fastpresspages), a small open-source community for people who ship. The CLI, GitHub Action, MCP server, reports and agent skill are Apache-2.0. There is no account, no tracking and no paid tier.
 

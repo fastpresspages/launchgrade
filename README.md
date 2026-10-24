@@ -6,7 +6,7 @@
 
 **Grade your launch before the internet does.**
 
-One command scans any public launch page across **53 checks in 7 categories**, then tells you exactly what to fix first. No account, no tracking, no paid API, no dependencies.
+One command scans any public launch page across **54 checks in 7 categories**, then tells you exactly what to fix first. No account, no tracking, no paid API, no dependencies.
 
 [![CI](https://github.com/fastpresspages/launchgrade/actions/workflows/ci.yml/badge.svg)](https://github.com/fastpresspages/launchgrade/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-C6FF4A.svg)](LICENSE)
@@ -249,7 +249,7 @@ Requests go to the FastPress Labs inbox through FormSubmit. We do not sell or sh
 
 ## Roadmap
 
-- [x] 53 checks across 7 categories
+- [x] 54 checks across 7 categories
 - [x] HTML, Markdown, JSON, badge and fix-plan output
 - [x] GitHub Action and MCP server
 - [x] Agent skill
