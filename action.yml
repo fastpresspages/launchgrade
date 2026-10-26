@@ -34,6 +34,14 @@ inputs:
     required: false
     default: terminal
 
+outputs:
+  score:
+    description: Launch page score (0-100).
+    value: ${{ steps.scan.outputs.score }}
+  grade:
+    description: Letter grade (A+ through F).
+    value: ${{ steps.scan.outputs.grade }}
+
 runs:
   using: composite
   steps:
@@ -42,7 +50,8 @@ runs:
       with:
         node-version: "20"
 
-    - name: Run LaunchGrade
+    - id: scan
+      name: Run LaunchGrade
       shell: bash
       env:
         INPUT_URL: ${{ inputs.url }}
@@ -60,4 +69,7 @@ runs:
         if [ "$INPUT_FAST" = "true" ]; then args+=("--fast"); fi
         if [ -n "$INPUT_FAIL_UNDER" ]; then args+=("--fail-under" "$INPUT_FAIL_UNDER"); fi
         if [ -n "$INPUT_FORMAT" ]; then args+=("--format" "$INPUT_FORMAT"); fi
-        node "$LAUNCHGRADE_ACTION_PATH/bin/launchgrade.js" "${args[@]}"
+        status=0
+        node "$LAUNCHGRADE_ACTION_PATH/bin/launchgrade.js" "${args[@]}" || status=$?
+        node -e "const fs=require('fs');const j=JSON.parse(fs.readFileSync(process.env.INPUT_OUT+'/report.json','utf8'));fs.appendFileSync(process.env.GITHUB_OUTPUT,'score='+j.score+'\ngrade='+j.grade+'\n')"
+        exit $status
