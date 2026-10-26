@@ -268,6 +268,8 @@ Have a check that would have saved your launch? [Open an issue](https://github.c
 - [FastPress Start](https://fastpresspages.github.io/fastpress-start/) — a free, zero-build launch page template. The live demo scores A+ 100/100.
 - [YouLauncher](https://fastpresspages.github.io/YouLauncher/) — the rebuilt growth-partner page used in the before/after above.
 - [Hire page](https://fastpresspages.github.io/hire-me/) — proof of work, not a padded resume.
+- [Agency](https://fastpresspages.github.io/agency/) — the paid side of the lab: launch builds, agents and RAG, when you want it done for you.
+- [Placement kit](https://fastpresspages.github.io/placement/) — a free 90-day placement-prep hub with 51 verified free learning links.
 - [Outreach field guide](https://github.com/fastpresspages/outreach) — goals, launch plan and honest outreach templates.
 
 ## Contributing
