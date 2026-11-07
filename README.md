@@ -272,6 +272,7 @@ Have a check that would have saved your launch? [Open an issue](https://github.c
 - [Placement kit](https://fastpresspages.github.io/placement/) — a free 90-day placement-prep hub with 51 verified free learning links.
 - [Skills kit](https://github.com/fastpresspages/skills) — installable agent skills (release playbook, weekly teardowns, inbox triage): `npx skills add fastpresspages/skills`.
 - [ContextPack](https://fastpresspages.github.io/contextpack/) — token-budgeted codebase context packer for LLMs (XML, Markdown, llms.txt, MCP server).
+- [EnvShield](https://fastpresspages.github.io/envshield/) — zero-dependency environment security auditor, secret leak detector, and .env.example sanitizer.
 - [Outreach field guide](https://github.com/fastpresspages/outreach) — goals, launch plan and honest outreach templates.
 
 ## Contributing
