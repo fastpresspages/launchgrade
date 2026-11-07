@@ -271,6 +271,7 @@ Have a check that would have saved your launch? [Open an issue](https://github.c
 - [Agency](https://fastpresspages.github.io/agency/) — the paid side of the lab: launch builds, agents and RAG, when you want it done for you.
 - [Placement kit](https://fastpresspages.github.io/placement/) — a free 90-day placement-prep hub with 51 verified free learning links.
 - [Skills kit](https://github.com/fastpresspages/skills) — installable agent skills (release playbook, weekly teardowns, inbox triage): `npx skills add fastpresspages/skills`.
+- [ContextPack](https://fastpresspages.github.io/contextpack/) — token-budgeted codebase context packer for LLMs (XML, Markdown, llms.txt, MCP server).
 - [Outreach field guide](https://github.com/fastpresspages/outreach) — goals, launch plan and honest outreach templates.
 
 ## Contributing
